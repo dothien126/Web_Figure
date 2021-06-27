@@ -1,0 +1,137 @@
+﻿@{
+    Layout = "~/Views/Admin/Shared/_Layout.cshtml";
+    List<FinalFantasu.Models.Order> processingOrders = ViewBag.ProcessingOrders;
+    List<FinalFantasu.Models.Order> doneOrders = ViewBag.DoneOrders;
+    List<FinalFantasu.Models.Address> ProcessingOrdersAddresses = ViewBag.ProcessingOrdersAddresses;
+    List<FinalFantasu.Models.Address> DoneOrdersAddresses = ViewBag.DoneOrdersAddresses;
+}
+
+@RenderPage("~/Areas/Admin/Views/Admin/ModalConfirmOrder.cshtml")
+<div class="container">
+    <div style="flex:1;background-color:#ff4d4d;padding:10px;border-radius:10px">
+        <h3 style="color:white">Quản lý đơn hàng</h3>
+        <div style="display:flex;flex:1">
+            <div class="list-group" id="list-tab" style="flex-direction: row;flex:1" role="tablist">
+                <a class="btn m-1 pl-5 pr-5 btn-light active show" style="flex:1" id="tab_login" data-toggle="list" href="#processing" role="tab">
+                    Chưa giao
+                    <span class="badge badge-primary badge-pill" style="background-color:#ff4d4d;">@processingOrders.Count</span>
+                </a>
+                <a class="btn m-1 pl-5 pr-5 btn-light" id="tab_register" style="flex:1" data-toggle="list" href="#deliveried" role="tab">
+                    Đã giao
+                </a>
+            </div>
+        </div>
+        <div style="display:flex;flex:1;">
+            <div class="tab-content" style="flex:1;" id="nav-tabContent">
+                <div class="tab-pane fade active show" id="processing" role="tabpanel">
+
+                    @for (int i = 0; i < processingOrders.Count; i++)
+                    {
+                        var item = processingOrders[i];
+
+                        <ul class="list-group" style="margin-bottom:15px;margin-top:15px">
+                            <li class="list-group-item list-group-item-action" style="justify-content:space-between;display:flex;flex-direction:row">
+                                <i style="font-size:13px">@item.CreateDate.Value.ToShortDateString()</i>
+                                <div>
+                                    Vận chuyển: <strong>GHTK</strong>
+                                </div>
+                            </li>
+                            @foreach (var fig in item.OrderDetails.ToList())
+                            {
+                                <li class="list-group-item list-group-item-action">
+                                    <div style="text-decoration:none;color:#808080;justify-content:space-between; display:flex;flex-direction:row">
+                                        <div>
+                                            <a href="/Home/Detail?id=@fig.idFigure"><img src="@fig.Figure.Images.OrderBy(x=>x.idFigure).First().Url" style="width:80px; height:80px;" /></a>
+                                            <strong>@fig.Figure.Title</strong>
+                                        </div>
+                                        <div>
+                                            <p align="right" style="color:#ff4d4d">Giá: @String.Format(new System.Globalization.CultureInfo("vi-VN"), "{0:N0}", fig.Figure.Price)</p>
+                                            <p align="right">Số lượng: @fig.Quantity</p>
+                                        </div>
+                                    </div>
+                                </li>
+                            }
+                            <li style="cursor:pointer;display:flex;flex-direction:row;justify-content:space-between" class="list-group-item list-group-item-action">
+                                <div style="max-width:50%">
+                                    <p>
+                                        Người nhận: <b>@item.User.Fullname</b>
+                                    </p>
+                                    <p>
+                                        Địa chỉ: <i>@ProcessingOrdersAddresses[i].Address1</i>
+                                    </p>
+                                    @*<p>
+                                        Ghi chú: <i>@item.NOTES</i>
+                                    </p>*@
+                                </div>
+                                <div style=" display: flex; justify-content: center; align-items: center;flex-direction:column">
+                                    <div style="display:flex;flex-direction:row;align-self:center">
+                                        <div style="margin-right:10px;margin-top:3px">Tổng số tiền</div> <h4 style="color:#ff4d4d;">@String.Format(new System.Globalization.CultureInfo("vi-VN"), "{0:N0}", item.TotalPrice)</h4>
+                                    </div>
+                                    <div onclick="onClickConfirmOrder('@item.ID')" class="btn btn-light" style="background-color:#ff4d4d;color:white;margin-left:25px;margin-top:15px">
+                                        Xác nhận giao hàng
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    }
+                </div>
+                <div class="tab-pane fade" id="deliveried" role="tabpanel">
+
+                    @for (int i = 0; i < doneOrders.Count; i++)
+                    {
+                        var item = doneOrders[i];
+
+                        <ul class="list-group" style="margin-bottom:15px;margin-top:15px">
+                            <li class="list-group-item list-group-item-action" style="justify-content:space-between;display:flex;flex-direction:row">
+                                <i style="font-size:13px">@item.CreateDate.Value.ToShortDateString()</i>
+                                <div>
+                                    Vận chuyển: <strong>GHTK</strong>
+                                </div>
+                            </li>
+                            @foreach (var fig in item.OrderDetails.ToList())
+                            {
+                                <li class="list-group-item list-group-item-action">
+                                    <div style="text-decoration:none;color:#808080;justify-content:space-between; display:flex;flex-direction:row">
+                                        <div>
+                                            <a href="/Home/Detail?id=@fig.idFigure"><img src="@fig.Figure.Images.OrderBy(x=>x.idFigure).First().Url" style="width:80px; height:80px;" /></a>
+                                            <strong>@fig.Figure.Title</strong>
+                                        </div>
+                                        <div>
+                                            <p align="right" style="color:#ff4d4d">Giá: @String.Format(new System.Globalization.CultureInfo("vi-VN"), "{0:N0}", fig.Figure.Price)</p>
+                                            <p align="right">Số lượng: @fig.Quantity</p>
+                                        </div>
+                                    </div>
+                                </li>
+                            }
+                            <li style="cursor:pointer;display:flex;flex-direction:row;justify-content:space-between" class="list-group-item list-group-item-action">
+                                <div style="max-width:50%">
+                                    <p>
+                                        Người nhận: <b>@item.User.Fullname</b>
+                                    </p>
+                                    <p>
+                                        Địa chỉ: <i>@DoneOrdersAddresses[i].Address1</i>
+                                    </p>
+                                    @*<p>
+                                        Ghi chú: <i>@item.NOTES</i>
+                                    </p>*@
+                                </div>
+                                <div style=" display: flex; justify-content: center; align-items: center;flex-direction:column">
+                                    <div style="display:flex;flex-direction:row;align-self:center">
+                                        <div style="margin-right:10px;margin-top:3px">Tổng số tiền</div> <h4 style="color:#ff4d4d;">@String.Format(new System.Globalization.CultureInfo("vi-VN"), "{0:N0}", item.TotalPrice)</h4>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    }
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    let onClickConfirmOrder = id => {
+        $('#order-id').val(id)
+        $('#modalConfirmOrder').modal('show');
+    }
+</script>

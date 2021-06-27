@@ -1,0 +1,105 @@
+﻿
+@{
+    Layout = null;
+}
+
+<div id="modal_login" class="modal fade" role="dialog" style="display: none;">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div id="login_x">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <div class="head">
+                        <h2 class="modal-title">Đăng nhập</h2>
+                        <p>
+                            <span>Bạn chưa có tài khoản?</span>
+                            <a id="btnShowModalRegister" href="#">Đăng ký</a>
+                        </p>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <form accept-charset="UTF-8" action="/Home/LoginAction" id="customer_login" method="POST">
+                            <input name="form_type" type="hidden" value="customer_login">
+                            <input name="utf8" type="hidden" value="✓">
+
+
+                            <div class="form-group">
+                                <label for="login-form-email">Email:</label>
+                                <input required="" type="email" id="login-form-email" name="email" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="login-form-password">Mật khẩu:</label>
+                                <input required="" type="password" id="login-form-password" name="password" class="form-control">
+                            </div>
+                            <div class="form-group nomargin">
+                                <button style="width:200px" class="btn btn-primary" id="login-form-submit" name="login-form-submit" type="submit" value="login">Đăng nhập</button>
+                            </div>
+                            <!--</form>-->
+
+                            <input id="a56a7fa164b34712a860e83857798517" name="g-recaptcha-response" type="hidden" value="03AGdBq25Qyhp62Yjggm8d4kbn2sFrrNoXgOBGEPrb4uln0GILuNAqxP6vUZ9YQWDr3AoDpLNNe7ipX0ejHu34iSyRbfK5Vh0-6jWK8Qjlp9O8RQK0pUOmnmZrKqwmDzTlfVAS0cdiC6vB7YJ6m8APqQ3vKgAnmAyIM9VNTfJAolL6JYobQEPCjPMQi7mJhivTnjnouI9eQ3aZi8dtesYjA6uBjfh-kThI_7n-5QQ4zpIxeZgDQgfMtfVu0GCTfwlEMMdZnFNSdLhMiP37V1Gu5CEk5b-kLp8rQFS0XGqodO7jh2INAbjWqVAkIaCImtVqtOI7ZFr07-iA4K2BzuvjSQGGYxQT-YMRTqkcaapipRxOKcKeeIcpjxBFXTFoexhhZohkuCrTTKjbhGExnROsiCxyl6hvlQGIVwa9ZPm5K0YKm1WnjLCe9UoGt4NXkonzP0u-sFvCHQwV">
+                            <script src="https://www.google.com/recaptcha/api.js?render=6LdD18MUAAAAAHqKl3Avv8W-tREL6LangePxQLM-"></script>
+                            <script>grecaptcha.ready(function () { grecaptcha.execute('6LdD18MUAAAAAHqKl3Avv8W-tREL6LangePxQLM-', { action: 'submit' }).then(function (token) { document.getElementById('a56a7fa164b34712a860e83857798517').value = token; }); });</script>
+                        </form>
+                        
+                    </div>
+                </div>
+            </div>
+
+            <!-- forgot password -->
+            <div id="recover_password_x" style="display:none; max-width: 550px;" class="userbox">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <div class="head_recover">
+                        <h2 class="modal-title"> Quên mật khẩu?</h2>
+                        <p>
+                            Vui lòng gửi email. Chúng tôi sẽ gửi link khởi tạo mật khẩu mới qua email của bạn.
+                        </p>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <form accept-charset="UTF-8" action="/account/recover" class="form_recover" method="post">
+                        <input name="form_type" type="hidden" value="recover_customer_password">
+                        <input name="utf8" type="hidden" value="true">
+                        <div class="form-group ">
+                            <label for="recover-email">Email:</label>
+                            <input required="" type="email" id="recover-email" name="email" value="" class="form-control">
+                        </div>
+
+                        <div class="form-group nomargin">
+                            <button class="btn btn-primary" type="submit">Gửi</button>
+                            <button class="btn btn-primary nomargin" onclick="hideRecoverPasswordForm_x(); return false;" name="cancel">Hủy</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- end forgot password -->
+            <script type="text/javascript">
+                function showRecoverPasswordForm_x() {
+                    document.getElementById('recover_password_x').style.display = 'block';
+                    document.getElementById('login_x').style.display = 'none';
+                }
+
+                function hideRecoverPasswordForm_x() {
+                    document.getElementById('recover_password_x').style.display = 'none';
+                    document.getElementById('login_x').style.display = 'block';
+                }
+                if (window.location.hash == '#recover') { showRecoverPasswordForm_x() }
+            </script>
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    $("#btnShowModal").click(function () {
+                        $("#modal_login").modal('show');
+                    });
+
+                    $("#btnHideModal").click(function () {
+                        $("#modal_login").modal('hide');
+                    });
+                });
+            </script>
+
+        </div>
+
+    </div>
+</div>

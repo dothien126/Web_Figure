@@ -1,0 +1,171 @@
+﻿
+@model IEnumerable<FinalFantasu.Models.Interactives.BillItem>
+
+@{
+    ViewBag.Title = "Thanh Toán";
+    List<FinalFantasu.Models.Address> listAddress = ViewBag.addresses;
+    ViewBag.MessageForValid = "Vui lòng nhập đủ thông tin";
+}
+<header>
+    <style>
+        .dropdown-item:active {
+            border: 0px !important;
+        }
+    </style>
+</header>
+<!--Section: Block Content-->
+<section>
+
+    <!--Grid row-->
+    <form class="row" action="/User/CheckOut" method="post">
+
+        <!--Grid column-->
+        <div class="col-lg-8 mb-4">
+
+            <!-- Card -->
+            <div class="card wish-list pb-1">
+                
+                <div class="card-body">
+
+                    <h5 class="mb-2" style="margin-bottom:20px">HÓA ĐƠN</h5>
+                    
+
+                    <!--Name-->
+                    <div class="md-form md-outline mb-0 mb-lg-4 other-contact-info" style="margin-bottom:30px;width:850px;margin-left:20px">
+                        <div class="md-form md-outline">
+                            <input type="text" id="" placeholder="Họ Tên"
+                                   class="form-control input-name" name="fullName">
+                        </div>
+                    </div>
+                    <!--Address-->
+                    <div class="md-form md-outline mb-0 mb-lg-4 other-contact-info" style="margin-bottom:30px;width:850px;margin-left:20px">
+                        <div class="md-form md-outline">
+                            <input type="text" id="" placeholder="Số nhà, Đường, Phường/Xã, Quận/Huyện, Tỉnh/Thành Phố"
+                                   class="form-control input-address" name="address">
+                        </div>
+                    </div>
+                    <input name="id_address" class="id_address" hidden />
+
+                    <!-- Phone -->
+                    <div class="md-form md-outline mb-0 mb-lg-4 other-contact-info" style="margin-bottom:30px;width:850px;margin-left:20px">
+                        <div class="md-form md-outline">
+                            <input type="number" name="phone" id="" class="form-control input-phone" placeholder="Số điện thoại">
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+            <!-- Card -->
+
+        </div>
+        <!--Grid column-->
+        <!--Grid column-->
+        <div class="col-lg-4">
+            @*Your Cart*@
+            <div class="mb-3">
+                <div class="pt-4">
+                    <h4 class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="text-muted">Đơn hàng</span>
+                        <span class="badge badge-secondary badge-pill" style="background-color:#ff0000;">@Model.Count()</span>
+                    </h4>
+                    <ul class="list-group mb-3">
+                        @foreach (var item in Model)
+                        {
+                            <li class="list-group-item d-flex justify-content-between lh-condensed">
+                                <div>
+                                    <h6 class="my-0">@item.figName</h6>
+                                    <small class="text-muted">Số lượng: @item.quantity</small>
+                                </div>
+
+                                <span class="text-muted ">@String.Format(new System.Globalization.CultureInfo("vi-VN"), "{0:N0}", item.price * item.quantity) VND</span>
+                            </li>
+                        }
+
+                        <li class="list-group-item d-flex justify-content-between">
+                            <strong style="color:#ff0000;">Tổng tiền</strong>
+                            <input type="text" style="color:#ff0000; border:none; background-color:white;" class="totalSum text-right font-weight-bold" disabled="disabled" />
+                            <input class="totalPrice" name="totalPrice" hidden />
+                        </li>
+                    </ul>
+                    <button type="submit" style="background-color:#ff0000;color:white" class="btn btn-light btn-block">Mua ngay</button>
+                </div>
+            </div>
+            @*End Your Cart*@
+            <hr />
+            @foreach (var item in Model)
+            {
+                <input hidden class="id_cart" name="id_cart" value="@item.id" />
+
+            }
+
+        </div>
+
+        <!--Grid column-->      
+    </form>
+    <!--Grid row-->
+
+    @foreach (var item in Model)
+    {
+
+        <div hidden class="amount">
+            @item.price
+
+        </div>
+        <div hidden class="quantity">
+            @item.quantity
+        </div>
+    }
+</section>
+<!--Section: Block Content-->
+
+<script>
+   
+        let sum = 0;
+        for (let i = 0; i < $('.amount').length; i++) {
+            let price = $('.amount')[i].textContent;
+            let quantity = $('.quantity')[i].textContent;
+            sum += price * quantity * 1.1;
+        }
+        $('.totalSum').val(parseInt(sum).toLocaleString('it-IT', { style: 'currency', currency: 'VND' }))
+        $('.totalPrice').val(parseInt(sum));
+    
+
+    let changeAddress = (text) => {
+        $('.addressPicker').val(text);
+        $('.input-address').val(text);
+        if (text == '') {
+            $('.other-contact-info').show('fast');
+            $('.client-name,.client-phone').text('');
+            $('.input-address,.input-name,.input-phone').val('')
+            $('.input-address,.inpuAAddress1dress1Address1t-phone,.input-name').attr('required', 'required');
+            $('.input-address,.input-phone,.input-name').attr('oninvalid', "this.setCustomValidity('Vui lòng nhập đủ thông tin!')");
+            $('.input-address,.input-phone,.input-name').attr('oninput', "PHONEetCustomValiditPhoney('')");
+        }
+        else {
+            $('.other-contact-info').hide('fast');
+        }
+    }
+
+    let changePhone = (phone) => {
+        $('.client-phone').text(phone);
+        $('.input-phone').val(phone);
+    }
+
+    let changeName = (name) => {
+        $('.client-name').text(name);
+        $('.input-name').val(name);
+    }
+   let changeIDAdress = (id) => {
+        $('.id_address').val(id);
+    }
+    if (@listAddress.Count() > 0)
+        $('.address_dropdown')[0].onclick();
+    else
+        $('.address_other')[0].onclick();
+    changeAddress();
+    changeTotalAmount();
+</script>
+
+

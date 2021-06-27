@@ -1,0 +1,92 @@
+﻿
+@{
+    Layout = null;
+    ViewBag.Icon = "../Content/dist/img/nerv-01.png";
+}
+<html lang="en">
+<head>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <title>AniFigure - Quản trị hệ thống</title>
+    <link rel="icon" type="image/png" href="@ViewBag.Icon" sizes="32x32">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Responsive sidebar template with sliding effect and dropdown menu based on bootstrap 3">
+    <title>TEADER - Quản lý hệ thống</title>
+    <script src="~/Content/Admin/IndedxAdmin.js"></script>
+    <link href="~/Content/Admin/IndedxAdmin.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+</head>
+
+<body data-new-gr-c-s-check-loaded="14.1010.0" data-gr-ext-installed="">
+    <div class="page-wrapper chiller-theme">
+        <a id="show-sidebar" class="btn btn-sm btn-dark" href="#">
+            <ion-icon class="side-bar-icon" name="list-outline"></ion-icon>
+        </a>
+        <nav id="sidebar" class="sidebar-wrapper" style="background-color:#ff4d4d;">
+            <div class="sidebar-content">
+                <div style="display:flex;flex:1;flex-direction:row;padding:10px;">
+                    <img style="width:150px;object-fit:contain" src="@ViewBag.Icon" />
+                    <div id="close-sidebar" style="text-align: right; font-size: 25px; flex: 1; display: flex;justify-content:flex-end">
+                        <ion-icon class="side-bar-icon" name="close-circle-outline"></ion-icon>
+                    </div>
+                </div>
+                <div class="sidebar-menu">
+                    <ul>
+                        <li class="header-menu">
+                            <span style="color:white">Quản trị hệ thống</span>
+                        </li>
+                        <li class="side-bar-tab">
+                            <a href="/Admin/Figure" style="color:#ff4d4d;" class="side-bar-click">
+                                <ion-icon name="book-outline" class="side-bar-icon"></ion-icon>
+                                <b class="side-bar-text">Figure</b>
+                            </a>
+                        </li>
+                        <li class="side-bar-tab">
+                            <a href="/Admin/Order" style="color:#ff4d4d;" class="side-bar-click">
+                                <ion-icon name="cube-outline" class="side-bar-icon"></ion-icon>
+                                <b class="side-bar-text">Đơn hàng</b>
+                            </a>
+                        </li>
+                        <li class="side-bar-tab">
+                            <a href="/Admin/User" class="side-bar-click">
+                                <ion-icon class="side-bar-icon" name="person-circle-outline"></ion-icon>
+                                <b class="side-bar-text">Người dùng</b>
+                            </a>
+                        </li>
+                        <li class="side-bar-tab">
+                            <a href="/Admin/Category" class="side-bar-click">
+                                <ion-icon class="side-bar-icon" name="albums-outline"></ion-icon>
+                                <b class="side-bar-text">Danh mục</b>
+                            </a>
+                        </li>
+                        <li class="side-bar-tab">
+                            <a href="/Home/Logout" class="side-bar-click">
+                                <ion-icon class="side-bar-icon" name="log-out-outline"></ion-icon>
+                                <b class="side-bar-text">Đăng xuất</b>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <main class="page-content">
+            @RenderBody()
+        </main>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script>
+        let listATag = $(".side-bar-click")
+        for (let i = 0; i < listATag.length; i++) {
+            if (window.location.href.includes(listATag[i].href))
+                $(listATag[i]).parent().addClass("active")
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,176 @@
+﻿@model IEnumerable<FinalFantasu.Models.Cart>
+@{
+    ViewBag.Title = "Giỏ Hàng";
+}
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <ol style="text-transform:uppercase;" class="breadcrumb breadcrumb-arrow" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+        <li><a href="/Home" itemprop="url" target="_self">TRANG CHỦ</a></li>
+        <li><i class="fa fa-angle-right"></i></li>
+        <li class="active"><span itemprop="title">Giỏ hàng</span></li>
+    </ol>
+</div>
+
+<!--if empty-->
+
+
+<section>
+
+    <!--Grid row-->
+    <form class="row" action="/User/Payment" method="post">
+
+        <!--Grid column-->
+        <div class="col-lg-8">
+
+            <!-- Card -->
+            <div class="mb-3">
+                <div class="pt-4 wish-list">
+
+                    <h5 class="mb-4" style="font-size:30px;margin-left:20px">Giỏ (<span>@Model.Count()</span> mặt hàng)</h5>
+
+                    @if (Model.Count() == 0)
+                    {
+                        <div class="empty" style="text-align:center;margin-bottom:100px">
+                            <img src="~/Content/dist/img/nerv-01.png" style="width:190px; height:250px; text-align:center" alt="" class="empty__img">
+                            <p class="empty__note" style="padding:20px">Không có sản phẩm nào trong giỏ hàng của bạn.</p>
+                            <a data-view-id="cart_empty_continue.shopping" style="background-color: rgb(255 0 0);
+                                                                  color: rgb(74, 74, 74);
+                                                                  font-weight: 500;
+                                                                  padding: 10px 55px;
+                                                                  display: inline-block;
+                                                                  border-radius: 4px;"
+                               href="/Home" class="empty__btn">
+                                Tiếp tục mua sắm
+                            </a>
+                        </div>
+                    }
+
+                    @foreach (var item in Model)
+                    {
+                        <div class="row mb-4">
+                            <div class="form-check col-md-1 col-lg-1 col-xl-1" style="text-align:center;display: none; justify-content: center; align-items: center;">
+                                <input name="idCarts" class="checkbox-input" type="text" value="@item.ID" id="flexCheck_@item.ID" style="width:15px; height:15px;" onclick="buyNowDisable();">
+                            </div>
+                            <div class="col-md-5 col-lg-3 col-xl-3" style="margin-left:30px">
+                                <div class="view zoom overlay z-depth-1 rounded mb-3 mb-md-0"  >
+                                    <img class="img-fluid w-100" style="width:110px;height:130px"
+                                         src="@item.Figure.Images.First().Url" alt="Ảnh của 1 Figure">
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-8 col-xl-8">
+                                <div>
+                                    <div class="d-flex justify-content-between">
+                                        <div class="col-8">
+                                            <h4>@item.Figure.Title</h4>
+                                            
+                                            <p class="mb-2 text-muted text-uppercase small">Số lượng: @item.Figure.Quantity</p>
+
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="def-number-input number-input safari_only mb-0" style="text-align:end">
+                                                <a class="btn btn-outline-light" onclick="downQuantity('@item.ID')" style="border:none; ">
+                                                    <ion-icon name="remove-outline"></ion-icon>
+                                                </a>
+                                                <input class="quantity amount" value="@item.Quantity" type="text" style="width: 25px; text-align: center; border:none;" id="inputQuantity_@item.ID" oninput="onChangeTextQuantity('@item.ID')">
+                                                <div hidden class="amount">@item.Figure.Price</div>
+                                                <a class="btn btn-outline-light" onclick="upQuantity('@item.ID')" style="border:none;">
+                                                    <ion-icon name="add-outline"></ion-icon>
+                                                </a>
+
+                                            </div>
+                                            <small id="passwordHelpBlock" class="form-text text-muted text-center">
+                                                Số Lượng
+                                            </small>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <a href="/User/DeleteCartItem?idfig=@item.idFigure" type="button" class="card-link-secondary small text-uppercase ml-3">
+                                                <i class="fas fa-trash-alt mr-1"></i> Xóa mặt hàng
+                                            </a>
+
+                                        </div>
+                                        <p class="mb-0">
+                                            <span>
+                                                <strong id="summary" style="color:rgb(255 0 0)">
+                                                    VND: @String.Format(new System.Globalization.CultureInfo("vi-VN"), "{0:N0}", item.Figure.Price)
+                                                </strong>
+                                            </span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="mb-4">
+                    }
+                </div>
+            </div>
+
+            
+        </div>
+        <!--Grid column-->
+        <!--Grid column-->
+        <div class="col-lg-4">
+
+            <!-- Card -->
+            <div class="mb-3">
+                <div class="pt-4">
+
+                    <h5 class="mb-3">Tổng tiền</h5>
+
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                            Tổng tạm
+                            <span id="totalAmount"></span>
+
+
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                            Phí vận chuyển
+                            <span>Miễn phí</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+                            <div>
+                                <strong>Tổng tiền cần thanh toán</strong>
+                                <strong>
+                                    <p class="mb-0">(đã bao gồm VAT)</p>
+                                </strong>
+                            </div>
+                            <span>
+                                <strong id="totalSumVAT">
+
+                                </strong>
+                            </span>
+                        </li>
+                    </ul>
+
+                    <button type="submit" style="background-color:rgb(255 0 0);color:white" class="btn btn-light btn-block buy-now">Mua ngay</button>
+
+                </div>
+            </div>
+            <!-- Card -->
+            <!-- Card -->
+            <!-- Card -->
+
+        </div>
+        <!--Grid column-->
+
+    </form>
+    <!-- Grid row -->
+
+</section>
+
+<script>
+    let changeTotalAmount = () => {
+        let sum = 0
+        for (let i = 0; i < $('div .amount').length; i += 2) {
+            let price = $('div .amount')[i + 1].textContent;
+            let quantity = $('div .amount')[i].value;
+            sum += price * quantity;
+        }
+        $('#totalAmount').text(sum.toLocaleString('it-IT', { style: 'currency', currency: 'VND' }))
+        $('#totalSumVAT').text((sum * 1.1).toLocaleString('it-IT', { style: 'currency', currency: 'VND' }))
+    }   
+
+    changeTotalAmount();
+</script>
+

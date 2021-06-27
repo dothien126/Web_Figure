@@ -1,0 +1,61 @@
+﻿@{
+    List<FinalFantasu.Models.Category> listCategory = (List<FinalFantasu.Models.Category>)ViewBag.list;
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-6">
+        <h4>Danh sách</h4>
+        <hr />
+        <input type="text" id="search_category" class="form-control" placeholder="Tìm kiếm danh mục" oninput="onInputSearch('body_category','search_category')" />
+        <div style="overflow-y:auto;height:800px">
+            <table class="table">
+                <tbody id="body_category">
+                    @foreach (var cate in listCategory)
+                    {
+                        <tr style="cursor:pointer" title="@cate.KeySearch" onclick="fillCate('@cate.ID', '@cate.Name')">
+                            <th>@cate.Name</th>
+                            <td><a href="/Admin/RemoveCategory/@cate.ID"><img src="~/Content/Icon/ic_delete.png" style="width:25px" /></a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        </div>
+        <div class="col-6">
+            <h4>Cập nhật</h4>
+            <form action="/Admin/UpdateCategory" method="post">
+                <label>Mã danh mục</label>
+                <div class="form-group">
+                    <input name="id" id="category_id_edit" type="text" class="form-control" placeholder="Mã danh mục" value="" readonly />
+                </div>
+                <label>Tên danh mục</label>
+                <div class="form-group">
+                    <input name="name" id="category_name_edit" type="text" class="form-control" placeholder="Danh mục" value="" />
+                </div>
+                <input type="submit" class="btn btn-light" id="category_button_edit" style="background-color:#00B38F;color:white" value="Cập nhật thông tin" disabled />
+            </form>
+            <hr />
+            <br />
+            <h4>Thêm mới</h4>
+            <form action="/Admin/AddCategory" method="post">
+                <label>Tên danh mục</label>
+                <div class="form-group">
+                    <input name="name" id="category_name_add" type="text" class="form-control" placeholder="Danh mục" value="" oninput="onInputAddCate()" />
+                </div>
+                <input type="submit" class="btn btn-light" id="category_button_add" style="background-color:#00B38F;color:white" value="Thêm" disabled />
+            </form>
+        </div>
+    </div>
+<script>
+    let fillCate = (id, name) => {
+        $("#category_id_edit").val(id)
+        $("#category_name_edit").val(name)
+        $("#category_button_edit").removeAttr("disabled")
+    }
+
+    let onInputAddCate = () => {
+        if ($('#category_name_add').val().length > 0) $('#category_button_add').removeAttr('disabled')
+        else $('#category_button_add').attr('disabled', 'disabled')
+    }
+</script>

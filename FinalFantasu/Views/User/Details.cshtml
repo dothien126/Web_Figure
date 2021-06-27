@@ -1,0 +1,508 @@
+﻿@model FinalFantasu.Models.Figure
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = Model.Title;
+    FinalFantasu.Models.User userInfo = (FinalFantasu.Models.User)Session[FinalFantasu.Utils.SessionUtils.SESSION.UserInfo];
+}
+
+<!--Header-->
+<div class="header-navigate clearfix mb15">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <ol style="text-transform:uppercase;" class="breadcrumb breadcrumb-arrow" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <li>
+                        <a href="/" itemprop="url" target="_self">TRANG CHỦ</a>
+                    </li>
+
+                    <li>
+                        <i class="fa fa-angle-right"></i>
+                    </li>
+                    <li>
+                        <a href="/User/AllProduct" itemprop="url" target="_self"><span itemprop="title">Hàng sản phẩm</span></a>
+                    </li>
+
+                    <li>
+                        <i class="fa fa-angle-right"></i>
+                    </li>
+                    <li class="active">
+                        <span itemprop="title">@Model.Title</span>
+                    </li>
+
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Main content-->
+<section id="product" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div id="surround" class="col-lg-9 col-md-9 main-pr-page">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6">
+
+
+                        <div class="row flexbox-product-slide">
+                            @{
+                                var tempImg = @Model.Images.First().Url;
+                            }
+                            <div class="col-lg-12 box-image-featured">
+                                <img class="product-image-feature" style="" src="@tempImg" alt="@Model.Title">
+                                <script>
+                                    @*$('.product-image-feature').elevateZoom({
+                                        scrollZoom: true,
+                                        cursor: "pointer"
+                                    });*@ 
+                                    jQuery(function () {
+                                        var zoomConfig = {
+                                            scrollZoom: true,
+                                            cursor: "pointer",
+                                            zoomWindowWidth: 300,
+                                            zoomWindowHeight: 300,
+                                        };
+                                        var image = $('.owl-stage div div a');
+                                        var zoomImage = $('.product-image-feature');
+
+                                        zoomImage.elevateZoom(zoomConfig);//initialise zoom
+
+                                        image.on('click', function () {
+                                            // Remove old instance od EZ
+                                            $('.zoomContainer').remove();
+                                            zoomImage.removeData('elevateZoom');
+                                            // Update source for images
+                                            zoomImage.attr('src', $(this).data('image'));
+                                            zoomImage.data('zoom-image', $(this).data('image'));
+                                            // Reinitialize EZ
+                                            zoomImage.elevateZoom(zoomConfig);
+                                        });
+                                    });
+                                </script>
+
+                                <div class="lazy-load-ball lazy-product-featured" style="display: none;">
+                                    <div class="uil-ring-css">
+                                        <div></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 pd-r-none-992 product-box-slide">
+                                <div class="product-thumb-vertical mThumbnailScroller _mTS_1 mTS-buttons-out mTS_no_scroll auto-mTS-x-hover-50-none" id="sliderproduct">
+                                    <div id="mTS_1" class="mTSWrapper mTS_vertical">
+                                        <div class="mTSAutoContainer mTSContainer" id="mTS_1_container" style="position: relative; top: 0px; left: 0px;">
+                                            <div class="owl-carousel owl-theme owl-loaded" id="thumb-product">
+                                                <div class="owl-stage-outer">
+                                                    <div class="owl-stage" style="width: 3307.5px;">
+                                                        @foreach (var img in Model.Images.ToList())
+                                                        {
+                                                            <div class="owl-item" style="width: 168.75px; margin-right: 15px;">
+                                                                <div class="product-thumb elier">
+                                                                    <a id="andaubuoiancut" href="javascript:void(0);" data-image="@img.Url">
+                                                                        <img src="@img.Url">
+                                                                    </a>
+                                                                </div>
+                                                                <script>
+                                                                    @*$(document).ready(function () { 
+                                                                        $("#andaubuoiancut").click(function () {
+                                                                            $('.zoomWindowContainer div').stop().css("background-image", "url(" + @img.Url+ ")");
+                                                                            $("#ancut").attr("src", @img.Url)
+                                                                        });
+                                                                    });*@
+                                                                </script>
+                                                            </div>
+                                                        }
+                                                    </div>
+                                                </div>
+                                                <div class="owl-controls">
+                                                    <div class="owl-nav">
+                                                        <div class="owl-prev" style="">
+                                                            <i class="fa fa-chevron-left"></i>
+                                                        </div>
+                                                        <div class="owl-next" style="">
+                                                            <i class="fa fa-chevron-right"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div class="owl-dots" style="display: none;"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+
+                    </div>
+                    <div class="col-lg-6 col-md-6 information-product">
+                        <div class="product-title">
+                            <h1>@Model.Title</h1>
+                            <div class="clearfix product-sku-date">
+                                <span class="pull-left product-sku" id="pro_sku">
+
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="product-price" id="price-preview">
+
+                            <span>@String.Format(new System.Globalization.CultureInfo("vi-VN"), "{0:N0}", Model.Price) đ</span>
+
+
+                        </div>
+                         
+                        <form id="add-item-form" action="/User/AddToCart?idfig=@Model.ID" method="post" class="variants clearfix variant-style ">
+                            <div class="select clearfix" style="display:none">
+
+
+                                <div class="selector-wrapper opt1">
+                                    <label>Tiêu đề</label>
+                                    <ul class="data-opt1 clearfix style-variant-template">
+                                    </ul>
+                                </div>
+
+
+
+                                <style>
+                                    .selector-wrapper:not(.opt1):not(.opt1-quickview):not(.opt2):not(.opt2-quickview):not(.opt3):not(.opt3-quickview) {
+                                        display: none;
+                                    }
+                                </style>
+
+                                <select id="product-select" name="id" style="display:none">
+
+                                    <option value="1074123121">Default Title - @Model.Price ₫</option>
+
+                                </select>
+                            </div>
+                            <div class="select-wrapper clearfix price-contact">
+                                <label>Số lượng</label>
+                                <div class="input-group">
+                                    <input type="button" value="-" onclick="Nobita.minusQuantity()" class="qty-btn">
+                                    <input type="text" id="quantity" name="quantity" value="1" min="1" class="quantity-selector">
+                                    <input type="button" value="+" onclick="Nobita.plusQuantity()" class="qty-btn">
+                                </div>
+                            </div>
+                            @if (TempData["Message"] != null)
+                            {
+                                <div class="alert alert-danger" role="alert">
+                                    @TempData["Message"]
+                                </div>
+                            }
+                            <div class="clearfix price-contact" style="margin-top:30px">
+                                @{
+                                    if (@Model.Quantity < 1)
+                                    {
+                                        <div class="newEvent">
+                                            <button type="button" class="button_actionbtn" id="pdActionBtn" data-tag="false" style="background-color:#ff1a1a">
+                                                <span class="dtruoc add addtocart">HẾT HÀNG</span>
+                                                <small class="dtruoc_cten">Liên hệ với chúng tôi để biết thêm thông tin!</small>
+                                            </button>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        if (userInfo != null)
+                                        {
+                                            <div class="newEvent">
+                                                <button type="button" class="button_actionbtn" id="pdActionBtn" data-tag="false" style="background-color:#6500ff">
+
+                                                    <span class="dtruoc add addtocart">SẢN PHẨM ĐẶT TRƯỚC</span>
+                                                    <small class="dtruoc_cten">Cọc 50%, nhận hàng khoảng 3-4 tuần sau khi phát hành</small>
+
+                                                </button>
+                                            </div>
+
+                                            <div class="product-btn-buy-to-cart">
+                                                <a href="#" onclick="addToCart()" title="Đặt mua" class="add addtocart"> Thêm vào giỏ</a>
+                                                <script>
+
+
+                                                </script>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="newEvent">
+                                                <button type="button" href="/User/Login" class="button_actionbtn" id="pdActionBtn" data-tag="false" style="background-color:#6500ff" onclick="window.location.href=" /User/Login">
+                                                    <span class="dtruoc add addtocart" onclick="window.location.href='/User/Login'">VUI LÒNG ĐĂNG NHẬP/ĐĂNG KÝ ĐỂ ĐẶT MUA</span>
+                                                    <small class="dtruoc_cten">Cọc 50%, nhận hàng khoảng 3-4 tuần sau khi phát hành</small>
+                                                </button>
+                                            </div>
+                                        }
+                                    }
+                                }
+
+                            </div>
+
+                            <div class="clearfix"></div>
+                        </form>
+
+                        <div class="information-more" style="margin-top:30px">
+                            <strong>Đặc biệt lưu ý:</strong>
+                            <ul>
+                                <li>
+                                    <i class="fa fa-check"></i> Hàng KHÔNG CÓ SẴN, cọc trước 50% giá trị sản phẩm
+                                </li>
+                                <li>
+                                    <i class="fa fa-check"></i> Hàng về trong khoảng 3-4 tuần sau khi phát hành
+                                </li>
+                                <li>
+                                    <i class="fa fa-check"></i> Lưu ý thời gian phát hành bên dưới mô tả chi tiết
+                                </li>
+                                <li>
+                                    <i class="fa fa-check"></i> GIÁ CÓ THỂ BIẾN ĐỘNG tùy thời điểm bạn đặt sớm hay trễ so với ngày phát hành.
+                                </li>
+                                <li>
+                                    <i class="fa fa-check"></i> Lịch phát hành có thể trì hoãn tùy thuộc vào nhà sản xuất và tình hình dịch Covid-19
+                                </li>
+                                <li>
+                                    <i class="fa fa-check"></i> Vui lòng hỏi lại giá với Admin trước khi đặt mua
+                                </li>
+                                <li>
+                                    <i class="fa fa-check"></i> Khoản cọc không được hoàn lại nếu bạn tự ý hủy đơn, không nhận hàng.
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="product-comment">
+                            <!-- Nav tabs -->
+                            <ul class="product-tablist nav nav-tabs" id="tab-product-template">
+                                <li class="active">
+                                    <a data-toggle="tab" aria-controls="mota" role="tab" href="#description">
+                                        <span>MÔ TẢ CHI TIẾT</span>
+                                    </a>
+                                </li>
+
+
+                                <li>
+                                    <a data-toggle="tab" href="#comment" aria-controls="comment" role="tab">
+                                        <span>BÌNH LUẬN</span>
+                                    </a>
+                                </li>
+
+                            </ul>
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+                                <div id="description" class="tab-pane fade in active">
+
+                                    <div class="container-fluid product-description-wrapper">
+                                        <div id="description2" style="max-height: none;">
+                                            <p class="item-detailsection-title">
+                                                <span style="font-size:12pt">
+                                                    <span style="background-color:white">
+                                                        <span style="font-family:&quot;Times New Roman&quot;,serif">
+                                                            <strong>
+                                                                <span style="font-size:11.0pt">
+                                                                    <span style="font-family:&quot;Arial&quot;,sans-serif">
+                                                                        <span style="color:#339966">@ViewBag.TitleDes</span>
+                                                                    </span>
+                                                                </span>
+                                                            </strong>
+                                                        </span>
+                                                    </span>
+                                                </span>
+                                            </p>
+                                            @foreach (var line in ViewBag.ContentDes)
+                                            {
+                                            <p>
+                                                <span style="font-size:12pt">
+                                                    <span style="background-color:white">
+                                                        <span style="font-family:&quot;Times New Roman&quot;,serif">
+                                                            <span style="font-size:11.0pt">
+                                                                <span style="font-family:&quot;Arial&quot;,sans-serif">
+                                                                    <span style="color:#333333">@line</span>
+                                                                </span>
+                                                            </span>
+                                                        </span>
+                                                    </span>
+                                                </span>
+                                            </p>
+                                            }
+
+                                        </div>
+                                        <script>
+                                            $('#description2').readmore({
+                                                speed: 100,
+                                                moreLink: '<a class="text-center" href="#">Mở rộng</a>',
+                                                lessLink: '<a class="text-center" href="#">Thu gọn</a>',
+                                                collapsedHeight: 1000,
+                                                heightMargin: 1,
+                                            });
+                                        </script>
+
+                                    </div>
+                                </div>
+
+                                <div id="comment" class="tab-pane fade">
+                                    <div class="mb15">
+                                        <div class="title-block">
+                                            <h2 class="title-group">Bình luận</h2>
+                                        </div>
+                                    </div>
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div id="fb-root"></div>
+                                            <div class="fb-comments fb_iframe_widget fb_iframe_widget_fluid_desktop" data-href="https://japanfigure.vn/products/atelier-ryza-ever-darkness-the-secret-hideout-lila-swimsuit-ver-1-7" data-numposts="5" width="100%" data-colorscheme="light" fb-xfbml-state="rendered" fb-iframe-plugin-query="app_id=&amp;color_scheme=light&amp;container_width=0&amp;height=100&amp;href=https%3A%2F%2Fjapanfigure.vn%2Fproducts%2Fatelier-ryza-ever-darkness-the-secret-hideout-lila-swimsuit-ver-1-7&amp;locale=vi_VN&amp;numposts=5&amp;sdk=joey&amp;version=v9.0&amp;width=" style="width: 100%;">
+                                                <span style="vertical-align: bottom; width: 100%; height: 0px;"><iframe name="f9800479627eb4" width="1000px" height="100px" data-testid="fb:comments Facebook Social Plugin" title="fb:comments Facebook Social Plugin" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" allow="encrypted-media" src="https://www.facebook.com/v9.0/plugins/comments.php?app_id=&amp;channel=https%3A%2F%2Fstaticxx.facebook.com%2Fx%2Fconnect%2Fxd_arbiter%2F%3Fversion%3D46%23cb%3Df36780fcb8b8dac%26domain%3Djapanfigure.vn%26origin%3Dhttps%253A%252F%252Fjapanfigure.vn%252Ffcebce65f7fec%26relation%3Dparent.parent&amp;color_scheme=light&amp;container_width=0&amp;height=100&amp;href=https%3A%2F%2Fjapanfigure.vn%2Fproducts%2Fatelier-ryza-ever-darkness-the-secret-hideout-lila-swimsuit-ver-1-7&amp;locale=vi_VN&amp;numposts=5&amp;sdk=joey&amp;version=v9.0&amp;width=" class="" style="border: none; visibility: visible; width: 100%; height: 0px;"></iframe></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 hidden-xs pd-none-box-service mb15">
+                <div class="row">
+                    <div class="col-lg-12 box-service-product">
+                        <div class="header-box-service-product">
+                            <div class="title">Đọc kỹ lưu ý và lịch phát hành</div>
+                            <div class="content">Trước khi đặt hàng</div>
+                        </div>
+                        <div class="content-box-service-product row">
+
+                            <div class="col-lg-12 col-sm-3 col-xs-12">
+                                <div class="border-service-product">
+                                    <div class="flexbox-grid-default">
+                                        <div class="flexbox-auto-45px flexbox-align-self-center">
+                                            <img src="//theme.hstatic.net/1000160337/1000373353/14/icon-service-1.png?v=168">
+                                        </div>
+                                        <div class="flexbox-content des-service-product">
+                                            <div class="title">Giao hàng miễn phí</div>
+                                            <div class="content">Với đơn hàng từ 1.000.000đ trở lên</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-lg-12 col-sm-3 col-xs-12">
+                                <div class="border-service-product">
+                                    <div class="flexbox-grid-default">
+                                        <div class="flexbox-auto-45px flexbox-align-self-center">
+                                            <img src="//theme.hstatic.net/1000160337/1000373353/14/icon-service-2.png?v=168">
+                                        </div>
+                                        <div class="flexbox-content des-service-product">
+                                            <div class="title">Giao hàng trên toàn quốc</div>
+                                            <div class="content">63 tỉnh thành</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-lg-12 col-sm-3 col-xs-12">
+                                <div class="border-service-product">
+                                    <div class="flexbox-grid-default">
+                                        <div class="flexbox-auto-45px flexbox-align-self-center">
+                                            <img src="//theme.hstatic.net/1000160337/1000373353/14/icon-service-3.png?v=168">
+                                        </div>
+                                        <div class="flexbox-content des-service-product">
+                                            <div class="title">Hoàn tiền 200%</div>
+                                            <div class="content">Nếu hàng bạn nhận được là hàng giả</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-lg-12 col-sm-3 col-xs-12">
+                                <div class="border-service-product">
+                                    <div class="flexbox-grid-default">
+                                        <div class="flexbox-auto-45px flexbox-align-self-center">
+                                            <img src="//theme.hstatic.net/1000160337/1000373353/14/icon-service-4.png?v=168">
+                                        </div>
+                                        <div class="flexbox-content des-service-product">
+                                            <div class="title">Hotline hỗ trợ</div>
+                                            <div class="content">0908268007</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+
+                        <div id="product-related" class="mb10 detail-pr-sidebar" style="position: static; top: 0px; width: initial;">
+                            <div class="wrapper-product-related">
+                                <div class="title-group-related">
+
+                                    <h2 class="title-group">Sản phẩm liên quan</h2>
+
+                                </div>
+
+                                <ul class="list-product-related">
+                                    @foreach (var related in (List<FinalFantasu.Models.Figure>)ViewBag.related)
+                                    {
+                                    <li>
+                                        <div class="flexbox-grid-default">
+                                            <div class="flexbox-auto-100px">
+                                                <a href="/User/Details?id=@related.ID">
+                                                    <img src="@related.Images.First().Url" alt="@related.Title">
+                                                </a>
+                                            </div>
+                                            <div class="flexbox-content pd-l-10">
+                                                <a href="/User/Details?id=@related.ID" title="@related.Title">
+                                                    <h3 class="product-title">@related.Title</h3>
+                                                    <p class="product-box-price-related clearfix flexbox-grid-default">
+
+                                                        <span class="price-new-related text-left">@related.Price đ</span>
+
+                                                    </p>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <hr>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</section>
+<script>
+      let addToCart = () => {
+            const quant = $("#quantity").val();
+            console.log(quant)
+            window.location.href = `/User/AddToCart?idfig=@Model.ID&quantity=${quant}`;
+        }
+    $(document).ready(function () {
+        if ($(".product-thumb-vertical").length > 0 && $(window).width() >= 768) {
+            $(".product-thumb-vertical").mThumbnailScroller({
+                axis: "y",
+                type: "click-thumb",
+                theme: "buttons-out",
+                type: "hover-precise",
+                contentTouchScroll: true
+            });
+            setTimeout(function () {
+                $('#sliderproduct').show();
+            }, 1000);
+        }
+        if ($(".product-thumb-vertical").length > 0 && $(window).width() < 767) {
+            $(".product-thumb-vertical").mThumbnailScroller({
+                axis: "x",
+                theme: "buttons-out",
+                contentTouchScroll: true
+            });
+            $('#sliderproduct').show();
+        }
+
+    });
+
+</script>

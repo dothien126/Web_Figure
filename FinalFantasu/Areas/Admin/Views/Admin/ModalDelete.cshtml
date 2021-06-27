@@ -1,0 +1,20 @@
+﻿<div class="modal" tabindex="-1" role="dialog" id="modalDelete">
+    <div class="modal-dialog" role="document">
+        <form class="modal-content" method="post" action="/Admin/Delete">
+            <div class="modal-header">
+                <h5 class="modal-title">Xoá đầu sách</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Xoá đầu sách <b id="delete-book-title"></b> khỏi hệ thống ?
+            </div>
+            <input name="id" id="delete-book-id" value="" hidden />
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-danger">Xoá</button>
+                <button type="button" style="color:white;background-color:#00B38F" data-toggle="modal" data-target="#modalDelete" class="btn">Huỷ</button>
+            </div>
+        </form>
+    </div>
+</div>

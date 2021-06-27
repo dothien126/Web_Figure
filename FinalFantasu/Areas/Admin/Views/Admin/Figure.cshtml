@@ -1,0 +1,232 @@
+﻿@{
+    IEnumerable<FinalFantasu.Models.Figure> Model = ViewBag.list;
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@RenderPage("~/Areas/Admin/Views/Admin/ModalDelete.cshtml")
+
+<nav class="nav float-right p-3">
+    <a href="/Admin/Admin/Add" class="btn btn-light" style="background-color:#00B38F;color:white">
+        <b>Thêm trà</b>
+    </a>
+</nav>
+
+
+<form action="?" class="pt-1 pb-4 container">
+    <div class="input-group">
+        <input name="text" type="text" class="form-control" placeholder="Tìm kiếm mô hình" value="@ViewBag.TextSearch" />
+        <button class="btn btn-solid-primary btn-light" style="color:white;background-color:#00B38F;" type="submit">
+            <ion-icon style="font-size:15px" name="search"></ion-icon>
+        </button>
+    </div>
+</form>
+<hr />
+<div style="display:flex;flex-direction:row;">
+    <div style="flex:1;min-width:160px">
+        <div class="ml-3">
+            <br />
+            <h5>
+                Giá
+            </h5>
+            <label>Từ</label>
+            <input type="number" class="form-control price" value="@ViewBag.PriceFrom" />
+            <label>Đến</label>
+            <input type="number" class="form-control price" value="@ViewBag.PriceTo" />
+            <p>
+                <a href="#" onclick="getUrl({ priceFrom: $('.form-control.price')[0].value, priceTo:$('.form-control.price')[1].value })"
+                   class="btn btn-light mt-1" style="background-color:#00B38F;color:white">
+                    Xác nhận
+                </a>
+            </p>
+            <h5>
+                THỂ LOẠI
+            </h5>
+            @foreach (var cate in ViewBag.ListCate)
+            {
+                if (cate.ID == ViewBag.cate)
+                {
+                    <div class="list-group-item" style="border:0px;padding:10px">
+                        <b style="color:#00B38F">@cate.Name</b>
+                        <a href="#" onclick="getUrl({ page: 1, cate:0 })" class="btn">
+                            <ion-icon style="font-size:25px;text-align:center" name="close-circle-outline"></ion-icon>
+                        </a>
+                    </div>
+                }
+                else
+                {
+                    <a class="list-group-item" style="border:0px;padding:10px;color:dimgray" href="#" onclick="getUrl({ cate: '@cate.ID', page:1 })">@cate.Name</a>
+                }
+            }
+        </div>
+    </div>
+    <div style="background-color:#f5f5f5;width:15px"></div>
+    <div style="flex:4;margin-left:15px">
+        <div class="row col">
+            <div class="mt-1">Sắp xếp theo</div>
+            <div class="dropdown ml-3">
+                <button class="btn dropdown-toggle" type="button" id="dropdownCate" data-toggle="dropdown">
+                    <span>@ViewBag.TextSort</span>
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#" onclick="getUrl({ page: 1, sort: 0 })">@FinalFantasu.Utils.SessionUtils.DROPDOWN_SORT.NEWEST</a>
+                    <a class="dropdown-item" href="#" onclick="getUrl({ page: 1, sort: 1 })">@FinalFantasu.Utils.SessionUtils.DROPDOWN_SORT.OLDEST</a>
+                    <a class="dropdown-item" href="#" onclick="getUrl({ page: 1, sort: 2 })">@FinalFantasu.Utils.SessionUtils.DROPDOWN_SORT.LOWEST_PRICE</a>
+                    <a class="dropdown-item" href="#" onclick="getUrl({ page: 1, sort: 3 })">@FinalFantasu.Utils.SessionUtils.DROPDOWN_SORT.HIGHEST_PRICE</a>
+                </div>
+            </div>
+
+            <div class="dropdown ml-3">
+                <button class="btn dropdown-toggle" type="button" id="dropdownPageSize" data-toggle="dropdown">
+                    <span>@ViewBag.PageSize sản phẩm</span>
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#" onclick="getUrl({ page: 1, pageSize: 10 })">16 sản phẩm</a>
+                    <a class="dropdown-item" href="#" onclick="getUrl({ page: 1, pageSize: 32 })">32 sản phẩm</a>
+                    <a class="dropdown-item" href="#" onclick="getUrl({ page: 1, pageSize: 64 })">64 sản phẩm</a>
+                </div>
+            </div>
+
+            @if (ViewBag.Sort != 0)
+            {
+                <a href="#" onclick="getUrl({ page: 1, sort: 0 })" class="btn">
+                    <ion-icon style="font-size:25px;text-align:center" name="close-circle-outline"></ion-icon>
+                </a>
+            }
+
+
+        </div>
+
+        @if (Model.Count() == 0)
+        {
+            <div style="text-align:center;margin-top:200px;margin-bottom:300px" class="col">
+                <img src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/assets/4122b759f91bd8dce310f1bc691e78ad.png">
+                <div class="product-not-exist__text">Không tìm thấy sản phẩm</div>
+            </div>
+        }
+        else
+        {
+            <p class="mt-3">
+                Trang @ViewBag.CurrentPage/@ViewBag.maxPage
+            </p>
+
+            <div style="margin:10px; flex:1;flex-direction:row;display:flex; border: 1px solid white;padding:10px;text-decoration:none">
+                <div style="width:100px ;object-fit:contain"></div>
+                <b class="title-tea">
+                    Tên trà
+                </b>
+                <div class="header-tea" style="text-align:center">
+                    Số lượng
+                </div>
+                <i class="price-tea" style="text-align:center">
+                    Giá
+                </i>
+                <div class="header-tea">
+                    Thao tác
+                </div>
+            </div>
+
+            foreach (var item in Model)
+            {
+                <div id="root_@item.ID" style="margin:10px; flex:1;flex-direction:row;display:flex; border: 1px solid white;padding:10px;text-decoration:none"
+                     onmousemove="onMoveMouseItem('root_@item.ID')" onmouseout="onMoveOutMouseOfItem('root_@item.ID')">
+                    <a href="/Admin/Admin/Edit?id=@item.ID">
+                        <img src="@item.Images.First().Url" style="width:100px;height:100px ;object-fit:contain" />
+                    </a>
+                    <b class="title-tea">
+                        @item.Title
+                    </b>
+                    <div class="header-tea" style="text-align:center">
+                        @item.Quantity
+                    </div>
+                    <i class="price-tea" style="text-align:center">
+                        @String.Format(new System.Globalization.CultureInfo("vi-VN"), "{0:N0}", item.Price)đ
+                    </i>
+                    <div class="header-tea" style="flex-direction:row">
+                        <a href="/Admin/Admin/Edit?id=@item.ID">
+                            <ion-icon style="font-size:25px" name="create-outline"></ion-icon>
+                        </a>
+                        <a href="#" onclick="onClickDeleteTea('@item.ID', '@item.Title')">
+                            <ion-icon style="font-size:25px;margin-left:20px" name="trash-outline"></ion-icon>
+                        </a>
+                    </div>
+                </div>
+            }
+
+
+            <div class="row" style="width: 50%; margin: auto;justify-content:center">
+                @if (@ViewBag.CurrentPage > 1)
+                {
+                    <a href="#" onclick="getUrl({ page: @ViewBag.CurrentPage-1 })" class="col item-page">
+                        <ion-icon style="font-size:18px;margin-top:2px" name="chevron-back-outline"></ion-icon>
+                    </a>
+                }
+                @if (@ViewBag.CurrentPage > 3)
+                {
+                    <a href="#" onclick="getUrl({ page: 1 })" class="col item-page">
+                        1
+                    </a>
+                    <ion-icon style="font-size:18px;margin-top:12px" name="ellipsis-horizontal-outline"></ion-icon>
+                }
+
+                @foreach (int i in ViewBag.ListPage)
+                {
+                    if (i == ViewBag.CurrentPage)
+                    {
+                        <div class="col item-page" style="background:#00B38F;color:white;">
+                            @(ViewBag.CurrentPage)
+                        </div>
+                    }
+                    else
+                    {
+                        <a href="#" onclick="getUrl({ page: @i })" class="col item-page">
+                            @i
+                        </a>
+                    }
+                }
+
+                @if (@ViewBag.CurrentPage <= (@ViewBag.maxPage - 3))
+                {
+                    <ion-icon style="font-size:18px;margin-top:12px" name="ellipsis-horizontal-outline"></ion-icon>
+                    <a href="#" onclick="getUrl({ page: @ViewBag.maxPage })" class="col item-page">
+                        @ViewBag.maxPage
+                    </a>
+                }
+                @if (@ViewBag.CurrentPage < @ViewBag.maxPage)
+                {
+                    <a href="#" onclick="getUrl({ page: @ViewBag.CurrentPage+1 })" class="col item-page">
+                        <ion-icon style="font-size:18px;margin-top:2px" name="chevron-forward-outline"></ion-icon>
+                    </a>
+                }
+
+            </div>
+        }
+    </div>
+</div>
+
+<script>
+    const onMoveMouseItem = (id) => {
+        $('#' + id).css('border', '1px solid #00B38F')
+    }
+    const onMoveOutMouseOfItem = (id) => {
+        $('#' + id).css('border', '1px solid white')
+    }
+
+    let onClickDeleteTea = (id, title) => {
+        $('#delete-tea-title').text(title)
+        $('#delete-tea-id').val(id)
+        $('#modalDelete').modal('show');
+    }
+
+    let getUrl = ({ page = '@ViewBag.Page',
+        text = $(".form-control")[0].value,
+        cate = '@ViewBag.Cate',
+        sort = '@ViewBag.Sort',
+        pageSize = '@ViewBag.PageSize',
+        type = '@ViewBag.Type',
+        language = '@ViewBag.Language',
+        priceFrom = '@ViewBag.PriceFrom',
+        priceTo = '@ViewBag.PriceTo' }) => {
+        let url = `?page=${page}&text=${text}&cate=${cate}&sort=${sort}&pageSize=${pageSize}&type=${type}&language=${language}&priceFrom=${priceFrom}&priceTo=${priceTo}`
+        window.location.href = url
+    }
+</script>

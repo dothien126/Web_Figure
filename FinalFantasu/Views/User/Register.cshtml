@@ -1,0 +1,117 @@
+﻿
+@{
+    ViewBag.Title = "Register";
+}
+
+<div class="header-navigate clearfix mb15">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <ol style="text-transform:uppercase;" class="breadcrumb breadcrumb-arrow" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <li><a href="/" itemprop="url" target="_self">TRANG CHỦ</a></li>
+
+                    <li><i class="fa fa-angle-right"></i></li>
+                    <li><a href="/User/Login" itemprop="url" target="_self">Tài khoản</a></li>
+                    <li><i class="fa fa-angle-right"></i></li>
+                    <li class="active"><span itemprop="title">Ðăng ký</span></li>
+
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="layout-account">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <div id="register" class="userbox">
+                    <h1>
+                        Đăng ký
+                    </h1>
+                    <div class="modal-body">
+                        <form accept-charset="UTF-8" action="/Home/RegisterAction" id="create_customer" method="post">
+
+                            <input name="form_type" type="hidden" value="create_customer">
+                            <input name="utf8" type="hidden" value="✓">
+
+
+
+                            <div class="form-group">
+                                <label for="register-form-firstname">Họ tên:</label>
+                                <input required="" type="text" id="register-form-firstname" placeholder="Họ tên" name="fullname" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="register-form-email">Email:</label>
+                                <input required="email" type="email" id="register-form-email" placeholder="Email" name="email" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="register-form-password">Mật khẩu:</label>
+                                <input required="" type="password" id="register-form-password" placeholder="Mật khẩu" name="password" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="register-form-email">Giới tính:</label>
+                                <select class="form-select form-select-lg mb-3 form-control" aria-label=".form-select-lg example" name="gender">
+                                    <option selected>Chọn giới tính</option>
+                                    <option value="Nam">Nam</option>
+                                    <option value="Nữ">Nữ</option>
+                                    <option value="Khác">khác</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="register-form-phone">Số điện thoại:</label>
+                                <input required="" type="phone" id="register-form-phone" placeholder="SĐT" name="phone" pattern="^(0?)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$" class="form-control">
+                                <script type="text/javascript">
+                                    $(document).ready(function () {
+                                        $('body').on('click', '.register-form-phone', function () {
+                                            var vnf_regex = /((09|03|07|08|05)+([0-9]{8})\b)/g;
+                                            var mobile = $('#mobile').val();
+                                            if (mobile !== '') {
+                                                if (vnf_regex.test(mobile) == false) {
+                                                    alert('Số điện thoại của bạn không đúng định dạng!');
+                                                } else {
+                                                    alert('Số điện thoại của bạn hợp lệ!');
+                                                }
+                                            } else {
+                                                alert('Bạn chưa điền số điện thoại!');
+                                            }
+                                        });
+                                    });
+                                </script>
+                            </div>
+                            <div class="form-group">
+                                <label for="register-form-email">Ngày sinh:</label>
+                                <div id="flatpickrcontainer1">
+                                    <input class="form-control" type="text" id="time" name="birthday" placeholder="Chọn ngày sinh" data-input>
+                                </div>
+                                <script>
+
+                                    // js initialization
+
+                                    flatpickr.l10ns.default.firstDayOfWeek = 1; // Monday default is sunday
+
+                                    document.getElementById("flatpickrcontainer1").flatpickr({
+                                        wrap: true,
+                                        weekNumbers: true,
+                                        onChange: function (selectedDates, dateStr, instance) {
+                                            console.log("changed");
+                                        }
+                                    });
+                                </script>
+                            </div>
+
+
+                            <div class="form-group nomargin">
+                                <button class="btn btn-primary" id="register-form-submit" name="register-form-submit" type="submit" value="register">Đăng ký</button>
+                            </div>
+
+                            <input id="5d7370d9d07a4215a539dce0fd25b55c" name="g-recaptcha-response" type="hidden" value="03AGdBq25gY1tQh-nkfx1yRmnfgzcw0G3X6UowOBybIZMjjh25bT6kU0A59M_37zBHNn1tylTE-vly991MhQVYqj6U5Q_SH3YK5GHTAY6dGLviJ4hhhiH-pvn3-TO1X-cedk-YSP5eS7QBGY52lkWx-HeosLedONo_eMpkPdDfMU_MxBSi8EkHaT8T2LAiY77XmU6lBaYaryXmkKLvhL3GtO9ViT3PDah1NYNlFKq3RwXjX2YWbTJGbaAKf63zcDpWtuyrA6J4toprX5Su7Ofp2WFATW6H0aLEE5Pt6uF41497Ha8mfSry4z3yEjPD4w6TIjLIym97ZVzkiXLy6dcC58Y7FlCksyfl2TPS93FPcI441ORQeXjnvlmo8YLtiacpc4tOxghjmT6vB4pSsLnhkYM_p0Rb8ZHlNbafGcAL5tBtc_Ceg1NhJUXecKDT4SDaq0Kq8IAK8Ndq">
+                            <script src="https://www.google.com/recaptcha/api.js?render=6LdD18MUAAAAAHqKl3Avv8W-tREL6LangePxQLM-"></script>
+                            <script>grecaptcha.ready(function () { grecaptcha.execute('6LdD18MUAAAAAHqKl3Avv8W-tREL6LangePxQLM-', { action: 'submit' }).then(function (token) { document.getElementById('5d7370d9d07a4215a539dce0fd25b55c').value = token; }); });</script>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

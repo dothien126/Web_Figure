@@ -1,0 +1,106 @@
+﻿@model FinalFantasu.Models.User
+@{
+    ViewBag.Title = "Thông tin cá nhân";
+}
+
+<div class="header-navigate clearfix mb15">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <ol style="text-transform:uppercase;" class="breadcrumb breadcrumb-arrow" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <li><a href="/" itemprop="url" target="_self">TRANG CHỦ</a></li>
+
+                    <li><i class="fa fa-angle-right"></i></li>
+                    <li class="active"><span itemprop="title">Tài khoản</span></li>
+
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="layout-info-account">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h1>
+                    Tài khoản của bạn <a class="logout" href="/Home/Logout"><span class="fa fa-sign-out"></span>Thoát</a>
+                </h1>
+            </div>
+            @{ 
+                if (Model.Orders.Count > 0) {
+                    <div id="customer_orders" class="col-md-8 col-xs-12">
+                        <div class="userbox rep-cartaccount overflow-account">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th class="order_number">Mã đơn hàng</th>
+                                        <th class="date">Ngày đặt</th>
+                                        <th class="payment_status">Trạng thái thanh toán</th>
+                                        <th class="fulfillment_status">Trạng thái vận chuyển</th>
+                                        <th class="total">Tổng tiền</th>
+                                    </tr>
+                                </thead>
+                                @{
+                                    foreach (var order in Model.Orders)
+                                    {
+                                        <tbody>
+                                            <tr class="odd ">
+                                                <td class=""><span>@order.ID</span></td>
+                                                <td class=""><span>@order.CreateDate.ToString()</span></td>
+                                                @{
+                                                    if (order.PaymentStatus == 0)
+                                                    {
+                                                        <td class=""><span class="status_pending">Chưa hoàn tất</span></td>
+                                                        <td class=""><span class="status_not fulfilled">Đóng gói xong - Sẵn sàng giao hàng</span></td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td class=""><span class="status_pending">Hoàn tất</span></td>
+                                                        <td class=""><span class="status_not fulfilled">Đã giao hàng</span></td>
+                                                    }
+                                                }
+
+                                                <td class=""><span class="total money">@order.TotalPrice</span></td>
+                                            </tr>
+                                        </tbody>
+                                    }
+                                }
+                            </table>
+
+                        </div>
+                    </div>
+                }
+                else {
+                    <div id = "customer_orders" class="col-md-8 col-xs-12">
+                        <div class="userbox rep-cartaccount overflow-account">
+
+                            <p>Bạn chưa đặt mua sản phẩm.</p>
+
+                        </div>
+                    </div>
+                }
+            }
+            
+            
+            <div id="customer_sidebar" class="col-md-4 col-xs-12">
+                <div class="userbox">
+
+                    <p><span>Họ tên</span>: @Model.Fullname</p>
+
+                    <p class="email"><span>Email</span>: @Model.Email</p>
+                    @*<div class="address ">
+
+                    <p><span>Địa chỉ</span>: @Model.Addresses.</p>
+
+                   </div>*@
+                    <p class="phone"><span>SĐT</span>: @Model.Phone</p>
+                    <p class="birthday"><span>Ngày sinh</span>: @Model.Birthday.ToString()</p>
+                    <p class="gender"><span>Giới tính</span>: @Model.Gender</p>
+                    @*<div class="text-right">
+                        <a id="view_address" href="/account/addresses">Xem địa chỉ <i class="fa fa-share"></i></a>
+                    </div>*@
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,414 @@
+﻿@model IEnumerable<FinalFantasu.Models.Figure>
+
+@{
+    ViewBag.Title = "Tất cả sản phẩm";
+}
+<!-- Img top page -->
+<div class="banner-collection-header text-center mt10">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <picture>
+                    <source media="(max-width: 767px)" srcset="//theme.hstatic.net/1000160337/1000373353/14/collection_image_large.jpg?v=168">
+                    <source media="(min-width: 768px)" srcset="//theme.hstatic.net/1000160337/1000373353/14/collection_image.jpg?v=168">
+                    <img src="//theme.hstatic.net/1000160337/1000373353/14/collection_image.jpg?v=168" alt="Products" title="Products">
+                </picture>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Header -->
+<div class="header-navigate clearfix mb15">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <ol style="text-transform:uppercase;" class="breadcrumb breadcrumb-arrow" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <li><a href="/Home" itemprop="url" target="_self">TRANG CHỦ</a></li>
+                    <li><i class="fa fa-angle-right"></i></li>
+                    <li><a href="/Home" itemprop="url" target="_self">Danh mục</a></li>
+                    <li><i class="fa fa-angle-right"></i></li>
+                    <li class="active"><span itemprop="title">Tất cả sản phẩm</span></li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Leftside bar -->
+<section id="collection" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <!--col-lg-3 col-sm-12 col-xs-12 -->
+            <div class="col-md-3">
+                <div class="wrap-filter clearfix mb15 hidden-boloc-mobile">
+
+                    <div class="group-collection group-collection-sidebar">
+                        <div class="title-block">
+                            <div class="bolocmobile">
+                                <a class="hidden-lg pull-right btn-filter-mobile" href="javascript:void(0);"><i class="fa fa-angle-double-left"></i> Quay lại</a>
+                            </div>
+
+                            <h2 class="title-group">DANH MỤC SẢN PHẨM</h2>
+
+                        </div>
+
+                        <div class="filter-box">
+                            <ul id="menusidebarleft" class="menu-collection clearfix mb15">
+
+
+                                @foreach (var type in ViewBag.ListType)
+                                {
+                                    if (type.ID == ViewBag.Type)
+                                    {
+                                        <div class="list-group-item" style="border:0px;padding:10px">
+                                            <b style="color:#dc3545">@type.Name</b>
+                                            <a href="@Url.Action("AllProduct", "User", new { page = 1, text = ViewBag.TextSearch, 
+                                        cate = ViewBag.Category, type = ViewBag.Type, 
+                                        sort = ViewBag.Sort, pageSize = ViewBag.PageSize, priceFrom = ViewBag.PriceFrom, priceTo = ViewBag.PriceTo })" onclick="" class="btn">
+                                                <ion-icon style="font-size:25px;text-align:center" name="close-circle-outline"></ion-icon>
+                                            </a>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <a class="list-group-item" style="border:0px;padding:10px;color:dimgray" href="@Url.Action("AllProduct", "User", new { page = 1, text = ViewBag.TextSearch, 
+                                        cate = ViewBag.Category, type = type.ID, 
+                                        sort = ViewBag.Sort, pageSize = ViewBag.PageSize, priceFrom = ViewBag.PriceFrom, priceTo = ViewBag.PriceTo })" onclick="">@type.Name</a>
+                                    }
+                                }
+
+
+
+                            </ul>
+                        </div>
+
+                    </div>
+                    <div class="group-collection group-collection-sidebar">
+                        <div class="title-block">
+                            <h2 class="title-group">BỘ LỌC SẢN PHẨM</h2>
+                        </div>
+
+                        <div class="filter-box" id="filter-vendor">
+                            <div class="title-block-filter">
+
+                                <h2 class="title-group">Thương hiệu </h2>
+
+                            </div>
+
+
+                            <p>
+                                <a class="btn btn-primary seebtn" onclick="MoreInfo();" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                    Ấn vào đây để xem thương hiệu.
+                                </a>
+                            </p>
+
+                            <div class="seemore" hidden>
+                                <ul class="seemore class">
+                                    @foreach (var cate in ViewBag.ListCate)
+                                    {
+                                        if (cate.ID == ViewBag.Cate)
+                                        {
+                                            <div class="list-group-item" style="border:0px;padding:10px">
+                                                <b style="color:#dc3545">@cate.Name</b>
+                                                <a href="@Url.Action("AllProduct", "User", new { page = 1, text = ViewBag.TextSearch, 
+                                        cate = ViewBag.Category, type = ViewBag.Type, 
+                                        sort = ViewBag.Sort, pageSize = ViewBag.PageSize, priceFrom = ViewBag.PriceFrom, priceTo = ViewBag.PriceTo })" onclick="" class="btn">
+                                                    <ion-icon style="font-size:25px;text-align:center" name="close-circle-outline"></ion-icon>
+                                                </a>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <a class="list-group-item" style="border:0px;padding:10px;color:dimgray" href="@Url.Action("AllProduct", "User", new { page = 1, text = ViewBag.TextSearch, 
+                                        cate = cate.ID, type = ViewBag.Type, 
+                                        sort = ViewBag.Sort, pageSize = ViewBag.PageSize, priceFrom = ViewBag.PriceFrom, priceTo = ViewBag.PriceTo })" onclick="">@cate.Name</a>
+                                        }
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <style>
+
+                        .confirm-price {
+                            background-color: #dc3545;
+                            color: white;
+                        }
+
+                            .confirm-price:hover {
+                                background-color: #ff0000;
+                                color: white;
+                            }
+                    </style>
+                    <div class="ml-3">
+
+                        <div class="title-block-filter">
+                            <h2 class="title-group">Giá</h2>
+                        </div>
+                        <label>Từ</label>
+                        <input type="number" class="form-control price" value="@ViewBag.PriceFrom" style="max-width:180px;" />
+                        <label>Đến</label>
+                        <input type="number" class="form-control price" value="@ViewBag.PriceTo" style="max-width:180px;" />
+                        <p>
+                            <a href="#" onclick="getUrl({ priceFrom: $('.form-control.price')[0].value, priceTo:$('.form-control.price')[1].value })"
+                               class="btn btn-light mt-1 confirm-price" style="margin-top:10px">
+                                Xác nhận
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <!-- col-lg-9 col-sm-12 col-xs-12-->
+
+            <div class=" col-md-9 ">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="group-collection">
+                            <div class="title-block">
+
+                                <h1 class="title-group">Tất cả sản phẩm</h1>
+
+                                <!--Tiêu đề bộ lọc moblie-->
+                                <div class="bolocmobile">
+                                    <a class="hidden-lg pull-right btn-filter-mobile" href="javascript:void(0);">Bộ lọc<i class="fa fa-angle-double-right"></i></a>
+                                </div>
+                                <!--end Tiêu đề bộ lọc moblie-->
+                             
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-top:30px">
+                    <div class="row product-lists product-item box-product-lists" id="event-grid">
+                        @if (Model.Count() == 0)
+                        {
+                            <div class="empty" style="text-align:center;margin-bottom:100px">
+                                <img src="~/Content/dist/img/23984 [Converted]-01.png" style="width:230px; height:250px; text-align:center;margin-top:30px" alt="" class="empty__img">
+                                <p class="empty__note" style="padding:20px">Bạn tìm lại đi Saber không thấy!</p>
+                                <a data-view-id="cart_empty_continue.shopping" style="background-color: rgb(255 106 0);
+                                                                  color: rgb(74, 74, 74);
+                                                                  font-weight: 500;
+                                                                  padding: 10px 55px;
+                                                                  display: inline-block;
+                                                                  border-radius: 4px;"
+                                   href="/Home" class="empty__btn">
+                                    Tiếp tục mua sắm
+                                </a>
+                            </div>
+                        }
+                        else
+                        {
+                            foreach (var item in Model)
+                            {
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6 product-wrapper product-resize fixheight" style="height: 316px;float:right">
+                                    <div class="product-information">
+                                        <div class="product-detail clearfix">
+                                            <div class="product-image image-resize" style="height: 240px;">
+                                                <a href="/User/Details?id=@item.ID" title="@item.Title">
+                                                    <p>
+                                                        <img src="@item.Images.First().Url" style="width:100% ;height:200px;object-fit:contain" />
+                                                    </p>
+                                                </a>
+                                                <div class="product-icon-new countdown_1033625069" style="">
+                                                    <svg class="svg-next-icon svg-next-icon-size-36" style="fill:#d80027">
+                                                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-new-product"></use>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                            <div class="product-info ">
+                                                <h2 class="product-title name">
+                                                    <a href="/User/Details?id=@item.ID" title="@item.Title">@item.Title</a>
+                                                </h2>
+                                                <p class="product-box-price clearfix">
+                                                    <span class="price price-new flexbox-content text-left">@String.Format(new System.Globalization.CultureInfo("vi-VN"), "{0:N0}", item.Price)₫</span>
+                                                </p>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+                <!--Page list-->
+                <div class="row pagelist" style="width: 50%; margin: auto;justify-content:center">
+                    @if (@ViewBag.CurrentPage > 1)
+                    {
+                        <a href="@Url.Action("AllProduct", "User", new { page = ViewBag.CurentPage-1, text = ViewBag.TextSearch, 
+                                        cate = ViewBag.Category, type = ViewBag.Type, 
+                                        sort = ViewBag.Sort, pageSize = ViewBag.PageSize, priceFrom = ViewBag.PriceFrom, priceTo = ViewBag.PriceTo })" onclick="" class="col item-page">
+                            <ion-icon style="font-size:18px;margin-top:2px;color:white" name="chevron-back-outline"><</ion-icon>
+                        </a>
+                    }
+                    @if (@ViewBag.CurrentPage > 3)
+                    {
+                        <a href="@Url.Action("AllProduct", "User", new { page = 1, text = ViewBag.TextSearch, 
+                                        cate = ViewBag.Category, type = ViewBag.Type, 
+                                        sort = ViewBag.Sort, pageSize = ViewBag.PageSize, priceFrom = ViewBag.PriceFrom, priceTo = ViewBag.PriceTo })" onclick="" class="col item-page">
+                            1
+                        </a>
+                        <ion-icon style="font-size:20px;margin-top:12px;color:white" name="ellipsis-horizontal-outline"></ion-icon>
+                    }
+
+                    @foreach (int i in ViewBag.ListPage)
+                    {
+                        if (i == ViewBag.CurrentPage)
+                        {
+                            <div class="col item-page" style="background:#82927e;color:white;font-size:20px">
+                                @(ViewBag.CurrentPage)
+                            </div>
+                        }
+                        else
+                        {
+                            <a href="@Url.Action("AllProduct", "User", new { page = @i, text = ViewBag.TextSearch, 
+                                        cate = ViewBag.Category, type = ViewBag.Type, 
+                                        sort = ViewBag.Sort, pageSize = ViewBag.PageSize, priceFrom = ViewBag.PriceFrom, priceTo = ViewBag.PriceTo })" onclick="" style="font-size:20px" class="col item-page">
+                                @i
+                            </a>
+                        }
+                    }
+
+                    @if (@ViewBag.CurrentPage <= (@ViewBag.maxPage - 3))
+                    {
+                        <ion-icon style="font-size:20px;margin-top:12px;color:white" name="ellipsis-horizontal-outline"></ion-icon>
+                        <a href="@Url.Action("AllProduct", "User", new { page = ViewBag.maxPage, text = ViewBag.TextSearch, 
+                                        cate = ViewBag.Category, type = ViewBag.Type, 
+                                        sort = ViewBag.Sort, pageSize = ViewBag.PageSize, priceFrom = ViewBag.PriceFrom, priceTo = ViewBag.PriceTo })" onclick="" style="font-size:20px" class="col item-page">
+                            @ViewBag.maxPage
+                        </a>
+                    }
+                    @if (@ViewBag.CurrentPage < @ViewBag.maxPage)
+                    {
+                        <a href="@Url.Action("AllProduct", "User", new { page = ViewBag.CurrentPage+1, text = ViewBag.TextSearch, 
+                                        cate = ViewBag.Category, type = ViewBag.Type, 
+                                        sort = ViewBag.Sort, pageSize = ViewBag.PageSize, priceFrom = ViewBag.PriceFrom, priceTo = ViewBag.PriceTo })" onclick="" class="col item-page">
+                            <ion-icon style="font-size:18px;margin-top:2px;color:white" name="chevron-forward-outline">></ion-icon>
+                        </a>
+                    }
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+<style>
+    .pagelist {
+        -webkit-text-size-adjust: 100%;
+        -webkit-tap-highlight-color: transparent;
+        visibility: inherit;
+        --blue: #007bff;
+        --indigo: #6610f2;
+        --purple: #6f42c1;
+        --pink: #e83e8c;
+        --red: #dc3545;
+        --orange: #fd7e14;
+        --yellow: #ffc107;
+        --green: #28a745;
+        --teal: #20c997;
+        --cyan: #17a2b8;
+        --white: #fff;
+        --gray: #6c757d;
+        --gray-dark: #343a40;
+        --primary: #007bff;
+        --secondary: #6c757d;
+        --success: #28a745;
+        --info: #17a2b8;
+        --warning: #ffc107;
+        --danger: #dc3545;
+        --light: #f8f9fa;
+        --dark: #343a40;
+        --breakpoint-xs: 0;
+        --breakpoint-sm: 576px;
+        --breakpoint-md: 768px;
+        --breakpoint-lg: 992px;
+        --breakpoint-xl: 1200px;
+        --font-family-sans-serif: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+        --font-family-monospace: SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
+        font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #212529;
+        text-align: left;
+        box-sizing: border-box;
+        display: flex;
+        flex-wrap: wrap;
+        width: 50%;
+        margin: auto;
+        justify-content: center;
+    }
+
+    .item-page {
+        -webkit-text-size-adjust: 100%;
+        -webkit-tap-highlight-color: transparent;
+        visibility: inherit;
+        --blue: #007bff;
+        --indigo: #6610f2;
+        --purple: #6f42c1;
+        --pink: #e83e8c;
+        --red: #dc3545;
+        --orange: #fd7e14;
+        --yellow: #ffc107;
+        --green: #28a745;
+        --teal: #20c997;
+        --cyan: #17a2b8;
+        --white: #fff;
+        --gray: #6c757d;
+        --gray-dark: #343a40;
+        --primary: #007bff;
+        --secondary: #6c757d;
+        --success: #28a745;
+        --info: #17a2b8;
+        --warning: #ffc107;
+        --danger: #dc3545;
+        --light: #f8f9fa;
+        --dark: #343a40;
+        --breakpoint-xs: 0;
+        --breakpoint-sm: 576px;
+        --breakpoint-md: 768px;
+        --breakpoint-lg: 992px;
+        --breakpoint-xl: 1200px;
+        --font-family-sans-serif: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+        --font-family-monospace: SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
+        font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        box-sizing: border-box;
+        position: relative;
+        width: 100%;
+        min-height: 1px;
+        flex-basis: 0;
+        flex-grow: 1;
+        text-align: center;
+        margin-bottom: 30px;
+        padding: 10px;
+        margin-left: 5px;
+        margin-right: 5px;
+        border-radius: 5px;
+        max-width: 50px;
+        background: #b30032;
+        color: white;
+    }
+</style>
+<script>
+    let MoreInfo = () => {
+        $(".seebtn").hide();
+        $(".seemore").show();
+    }
+        getUrl = ({ page = '@ViewBag.Page',
+        text = $(".form-control")[0].value,
+        cate = '@ViewBag.Cate',
+        sort = '@ViewBag.Sort',
+        type = '@ViewBag.Type',
+        pageSize = '@ViewBag.PageSize',
+        priceFrom = '@ViewBag.PriceFrom',
+        priceTo = '@ViewBag.PriceTo' }) => {
+        let url = `?page=${page}&text=${text}&type=${type}&cate=${cate}&sort=${sort}&pageSize=${pageSize}&priceFrom=${priceFrom}&priceTo=${priceTo}`
+        window.location.href = url
+    }
+</script>

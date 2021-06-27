@@ -1,0 +1,113 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+}
+
+<div class="header-navigate clearfix mb15">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <ol style="text-transform:uppercase;" class="breadcrumb breadcrumb-arrow" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <li><a href="/" itemprop="url" target="_self">TRANG CHỦ</a></li>
+
+                    <li><i class="fa fa-angle-right"></i></li>
+                    <li><a href="/User/Login" itemprop="url" target="_self">Tài khoản</a></li>
+                    <li><i class="fa fa-angle-right"></i></li>
+                    <li class="active"><span itemprop="title">Đăng nhập</span></li>
+
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="layout-account">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <div id="login" class="userbox">
+                    <h1>
+                        Đăng nhập
+                    </h1>
+                    <form accept-charset="UTF-8" action="/User/LoginAction" id="customer_login" method="post">
+                        <input name="form_type" type="hidden" value="customer_login">
+                        <input name="utf8" type="hidden" value="✓">
+
+                        <div class="errors">
+                            <ul>
+                                <li>@TempData["Message"]</li>
+                            </ul>
+                        </div>
+                        <div class="input-group input-account mb15">
+                            <label class="input-group-addon">
+                                <svg class="svg-next-icon svg-next-icon-size-18" style="fill:#777">
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-email"></use>
+                                </svg>
+                            </label>
+                            <input required="" type="email" name="email" id="customer_email" placeholder="Email" class="form-control">
+                        </div>
+
+                        <div class="input-group input-account mb15">
+                            <label class="input-group-addon">
+                                <svg class="svg-next-icon svg-next-icon-size-18" style="fill:#777">
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-password"></use>
+                                </svg>
+                            </label>
+                            <input required="" type="password" name="password" id="customer_password" placeholder="Mật khẩu" class="form-control" size="16">
+                        </div>
+
+                        <div class="action_bottom mb15">
+                            <input class="btn btn-signin" type="submit" value="Đăng nhập">
+                        </div>
+                        <div class="req_pass">
+                            <a href="#" onclick="showRecoverPasswordForm();return false;">Quên mật khẩu?</a>
+                            hoặc <a href="/User/Register" title="Đăng ký">Đăng ký</a>
+                        </div>
+
+                        <input id="6ec0510c664e4c78ac1eb4bf13e3007a" name="g-recaptcha-response" type="hidden" value="03AGdBq27pZwcW1DAIchTbjJnbIKmPQwRY8mg3PqsSvrdyq5bkfMVBwsJ-nKiBC_GcO5Om3sjNgFnQne2AkxVtXKmaPIhJ8gxOLFc4B7VscJ7BWAPxKz-h3jddkKGITYuqQVy7naTGSBQccBR-S72wt8IMDvGLbiB73mMEIudTzqIkJp-0HSL84KerFmqCFiayMCNYl1cKxSTKYuLV7PpYBijSL8RALgGDFVGi62-iaM3TW1PnaZ6uc81W-SZO21l36G94D7SJz2YY1udyWKKZtwtM_aW1AgRxCpmiwPS9I9qWrs-6vjSzUsyARCH1BenpRKkffAYEpM0PJ-4f2O8f35lfjj3ek0A9VHOzm6E1umr843PJ7Eyp9Q9I8rmtjJYCMiolhEVlz99lC6O4Iy_52UI0hv93HQoSjU89t8Q209FBtdBVkp3PkFgLvMxhf6dgDTmX_lJkna3D">
+                        <script src="https://www.google.com/recaptcha/api.js?render=6LdD18MUAAAAAHqKl3Avv8W-tREL6LangePxQLM-"></script>
+                        <script>grecaptcha.ready(function() {grecaptcha.execute('6LdD18MUAAAAAHqKl3Avv8W-tREL6LangePxQLM-', {action: 'submit'}).then(function(token) {document.getElementById('6ec0510c664e4c78ac1eb4bf13e3007a').value = token;});});</script>
+                    </form>
+                </div>
+                <div id="recover-password" style="display:none;" class="userbox">
+                    <h1>Phục hồi mật khẩu</h1>
+                    <form accept-charset="UTF-8" action="/account/recover" method="post">
+                        <input name="form_type" type="hidden" value="recover_customer_password">
+                        <input name="utf8" type="hidden" value="✓">
+
+
+                        <div class="input-group input-account mb15">
+                            <label class="input-group-addon">
+                                <svg class="svg-next-icon svg-next-icon-size-18" style="fill:#777">
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-password"></use>
+                                </svg>
+                            </label>
+                            <input type="email" name="email" id="recover-email" placeholder="Email" class="form-control" size="30">
+                        </div>
+                        <div class="action_bottom mb15">
+                            <input class="btn" type="submit" value="Gửi">
+                        </div>
+                        <div class="req_pass">
+                            <a href="#" onclick="hideRecoverPasswordForm();return false;">Hủy</a>
+                        </div>
+
+                        <input id="97f04606587b48b3ac29c720626d4ce5" name="g-recaptcha-response" type="hidden" value="03AGdBq26vO_20WTY9LvO4Rs8D5d49Dsqj_jCCq7OtQH2fujRmB_cWWsg2uRWgHhaGipxymYFBPLba7M-jrdWiIgI5n4wPb-xACTV9RO9TXJJmLIXSyXD4KwrD6q9zvUeW_ZU99DpbOTnohRAuTJP81DcEY0m_K8LCTuRm8F42i4g0iRPY_3jm4Zk1V-m9nayo22_W8PmfxnnolOJGVN4x1gO_sw1swtMzIO2Gp_2WfCz8juupJittjdte7jbnOavjW9TYVtBDktf6lQ8cRPcxEKpQO3FrgqN91pig0G0mOpXi2Ifs9aCe7zaikbqiMhaJV02u_2TaZbrRQfM21uvDw4egRRCVDTaRQaElAnZmuSKKGyT5JIAyqeikcki7Po2wZtt5XwT7omOa7bHTjwqje-98DSh9yX3ehlb8CAS6ExednsF0sryjlIZw4WBqwSnrxEHGq470YidW">
+                        <script src="https://www.google.com/recaptcha/api.js?render=6LdD18MUAAAAAHqKl3Avv8W-tREL6LangePxQLM-"></script>
+                        <script>grecaptcha.ready(function() {grecaptcha.execute('6LdD18MUAAAAAHqKl3Avv8W-tREL6LangePxQLM-', {action: 'submit'}).then(function(token) {document.getElementById('97f04606587b48b3ac29c720626d4ce5').value = token;});});</script>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    function showRecoverPasswordForm() {
+        document.getElementById('recover-password').style.display = 'block';
+        document.getElementById('login').style.display = 'none';
+    }
+    function hideRecoverPasswordForm() {
+        document.getElementById('recover-password').style.display = 'none';
+        document.getElementById('login').style.display = 'block';
+    }
+    if (window.location.hash == '#recover') { showRecoverPasswordForm() }
+</script>

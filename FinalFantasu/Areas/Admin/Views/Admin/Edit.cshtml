@@ -1,0 +1,170 @@
+﻿@model  FinalFantasu.Models.Figure
+
+@{
+    ViewBag.Title = Model.Title;
+    ViewBag.MessageForValid = "Vui lòng nhập đủ thông tin";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+
+    List<FinalFantasu.Models.Image> images = new List<FinalFantasu.Models.Image>();
+
+    images.AddRange(Model.Images.ToList());
+}
+
+
+
+
+<br />
+<br />
+<form class="form-horizontal ml-2" method="post" action="/Admin/EditTea" enctype="multipart/form-data">
+    <div class="row ml-2">
+        <div onclick="goBack()" style="cursor:pointer">
+            <ion-icon style="font-size:25px;color:#00B38F;margin-top:5px;margin-right:10px" name="arrow-back-circle-outline"></ion-icon>
+        </div>
+        <h4>Cập nhật thông tin</h4>
+    </div>
+    <hr />
+    <p>
+        <h5>Ảnh trà</h5>
+    </p>
+
+    <div style="display:flex;flex:1">
+        <div class="m-3">
+            <label for="file-input">
+                <img src="https://cdn.pixabay.com/photo/2017/11/10/05/24/add-2935429_960_720.png" id="imgVoTra" style="height:250px;width:150px;object-fit:contain;text-align:center;" />
+            </label>
+            <input id="file-input" name="Images" type="file" hidden multiple accept="image/*" onchange="OnAddImage();" />
+        </div>
+        <div id="images_delete" hidden></div>
+        <div id="images" style="overflow-x:auto;height:300px;flex-direction:row;display:flex;overflow-y:hidden">
+            @for (int i = 0; i < images.Count; i++)
+            {
+                <div onclick="deleteImage('@i', '@images[i].IDImage')" class="m-3" style="position: relative; display: inline-block;" id="divVoTra_@i" onmouseover="onFocusImg('@i')" onmouseout="onBlurImg()">
+                    <img id="imgVoTra_@i" src="@images[i].Url" style="height:250px;width:250px;object-fit:contain;text-align:center;" />
+                    <div style="position: absolute; top: 100px; left: 100px; height: 100%; width: 100%; z-index: 2;"><img hidden='hidden' id="icDelete_@i" style="height:50px;width:50px;object-fit:contain;" src="/Content/Icon/ic_delete.png" /></div>
+                </div>
+            }
+        </div>
+    </div>
+    <input class="form-control" name="ID" value="@Model.ID" hidden />
+    <div class="col">
+        <div class="col">
+            <div class="form-group">
+                <label>Tên Figure</label>
+                <input type="text"
+                       class="form-control"
+                       name="Title"
+                       id="Title"
+                       value="@Model.Title"
+                       required
+                       oninput="setCustomValidity('')"
+                       oninvalid="this.setCustomValidity('@ViewBag.MessageForValid')" />
+            </div>
+            <div class="form-group">
+                <label>Giá tiền</label>
+                <input type="number"
+                       class="form-control"
+                       name="Price"
+                       id="Price"
+                       value="@Model.Price"
+                       required
+                       oninput="setCustomValidity('')"
+                       oninvalid="this.setCustomValidity('@ViewBag.MessageForValid')" />
+            </div>
+            <div class="form-group">
+                <label>Thể loại</label>
+                @Html.DropDownList("idCategory", new SelectList(ViewBag.listCategories, "ID", "Name"), htmlAttributes: new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label>Mô tả</label>
+                <textarea type="text"
+                          class="form-control"
+                          name="Description"
+                          id="Description"
+                          rows="5">@Model.Description</textarea>
+            </div>
+            <button type="submit" id="button_push" class="btn btn-light col p-3" style="background-color:#00B38F;color:white;">Cập nhật thông tin</button>
+
+        </div>
+    </div>
+</form>
+<script>
+
+    const goBack = () => {
+        if (document.referrer.includes("Edit")) {
+            window.location.href = '/Admin/Order'
+        } else {
+            history.back()
+        }
+    }
+
+    let listImg = []
+
+    let dt = new DataTransfer()
+
+    let oldId = -1
+    const onFocusImg = (id) => {
+        $("#imgVoTra_" + id).css('opacity', 0.3);
+        $("#imgVoTra_" + id).css('border', '2px solid #00B38F')
+        $("#icDelete_" + id).removeAttr('hidden');
+        oldId = id
+    }
+    const onBlurImg = () => {
+        $("#imgVoTra_" + oldId).css('opacity', 1);
+        $("#imgVoTra_" + oldId).css('border', '0px')
+        $("#icDelete_" + oldId).attr('hidden', 'hidden');
+    }
+
+    let setFileInput = () => {
+        dt.items.clear()
+        for (let i = 0; i < listImg.length; i++) {
+            dt.items.add(listImg[i].file)
+        }
+        $("#file-input")[0].files = dt.files
+        if ($("#images")[0].children.length == 0)
+            $("#button_push").attr("disabled", "disabled")
+        else
+            $("#button_push").removeAttr("disabled")
+
+    }
+
+
+    let deleteImage = (id, idImage) => {
+        $("#divVoTra_" + id).remove();
+        let containt = listImg.filter(e => e.id == id).length > 0
+        if (containt) {
+            listImg = listImg.filter(e => e.id != id)
+        } else {
+            $("#images_delete").append(`<input name="images_delete" hidden value="${idImage}" />`)
+        }
+        setFileInput()
+    }
+</script>
+
+<script>
+    let imgCount = @images.Count;
+
+    let OnAddImage = () => {
+        const files = $("#file-input")[0].files
+        if (files && files.length > 0) {
+            for (let i = 0; i < files.length; i++) {
+
+                let reader = new FileReader();
+                reader.onload = function (e) {
+                    $("#images").append(`<div onclick="deleteImage('${imgCount}')" class="m-3" style="position: relative; display: inline-block;" id="divVoTra_${imgCount}" onmouseover="onFocusImg('${imgCount}')" onmouseout="onBlurImg()">
+    <img id="imgVoTra_${imgCount}" style="height:250px;width:250px;object-fit:contain;text-align:center;" />
+    <div style="position: absolute; top: 100px; left: 100px; height: 100%; width: 100%; z-index: 2;"><img hidden='hidden' id="icDelete_${imgCount}" style="height:50px;width:50px;object-fit:contain;" src="/Content/Icon/ic_delete.png" /></div>
+</div>`)
+                    $('#imgVoTra_' + imgCount).attr('src', e.target.result);
+                    listImg.push({
+                        id: imgCount,
+                        file: files[i]
+                    })
+                    setFileInput()
+                    imgCount += 1
+                }
+                reader.readAsDataURL(files[i])
+            }
+        }
+
+    }
+</script>

@@ -1,0 +1,74 @@
+﻿@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    List<FinalFantasu.Models.User> listUser = (List<FinalFantasu.Models.User>)ViewBag.list;
+}
+
+<div class="row">
+    <div class="col-6">
+        <h4>Danh sách</h4>
+        <hr />
+        <input type="text" class="form-control" id="search_user" placeholder="Tìm kiếm người dùng ( Tên, số điện thoại )" oninput="onInputSearch('body_user','search_user')" />
+        <div style="overflow-y:auto;height:800px">
+            <table class="table">
+                <tbody id="body_user">
+                    @foreach (var user in listUser)
+                    {
+                        <tr style="cursor:pointer" title="@user.KeySearch" onclick="fillUser('@user.Phone', '@user.Email', '@user.Fullname', '@user.Gender', '@user.Birthday')">
+                            <th>@user.Phone</th>
+                            <td>@user.Fullname</td>
+                            @if (user.is_ban != 1)
+                            {
+                                <td><a href="/Admin/BanUser?id=@user.ID&ban=1"><img src="~/Content/Icon/ic_lock.png" style="width:25px" /></a></td>
+                            }
+                            else
+                            {
+                                <td><a href="/Admin/BanUser?id=@user.ID&ban=0"><img src="~/Content/Icon/ic_unlock.png" style="width:25px" /></a></td>
+                            }
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="col-6">
+        <form action="/Admin/UpdateUser" method="post">
+            <label>Số điện thoại</label>
+            <div class="form-group">
+                <input name="phone" id="user_phone" type="text" class="form-control" placeholder="Số điện thoại" value="" readonly />
+            </div>
+            <label>Email</label>
+            <div class="form-group">
+                <input name="email" id="user_email" type="email" class="form-control" placeholder="Email " value="" />
+            </div>
+            <label>Họ và tên</label>
+            <div class="form-group">
+                <input name="fullname" id="user_fullname" type="text" class="form-control" placeholder="Họ và tên " value="" />
+            </div>
+            <div class="form-group">
+                <label>Giới tính</label>
+                <select name="gender" id="user_gender" class="form-control">
+                    <option value="Khác">Khác</option>
+                    <option value="Nam">Nam</option>
+                    <option value="Nữ">Nữ</option>
+                </select>
+            </div>
+            <label>Ngày sinh</label>
+            <div class="form-group">
+                <input name="birthday" id="user_birthday" type="date" class="form-control" placeholder="Ngày sinh " value="" />
+            </div>
+            <input type="submit" class="btn btn-light" id="user_button" style="background-color:#00B38F;color:white" value="Cập nhật thông tin" disabled />
+        </form>
+    </div>
+</div>
+<script>
+    let fillUser = (phone, email, fullname, gender, birthday) => {
+        $("#user_phone").val(phone)
+        $("#user_email").val(email)
+        $("#user_fullname").val(fullname)
+        $("#user_gender").val(gender)
+        $("#user_birthday").val(birthday)
+        $("#user_button").removeAttr("disabled")
+    }
+</script>

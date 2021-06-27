@@ -1,0 +1,522 @@
+﻿<!DOCTYPE html>
+
+@{
+    FinalFantasu.Models.User userInfo = (FinalFantasu.Models.User)Session[FinalFantasu.Utils.SessionUtils.SESSION.UserInfo];
+}
+<html>
+<head>
+    <link rel="shortcut icon" href="https://theme.hstatic.net/1000160337/1000373353/14/favicon.png?v=168" type="image/png">
+    <!--meta tags-->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!--boostrap-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    @*<link rel="stylesheet" href="~/Content/dist/css/style2.css" type="text/css" media="all"/>*@
+    @*<link rel="stylesheet" href="~/Content/dist/css/StyleSheet.css" />*@
+    <link rel="stylesheet" href="~/Content/dist/assets/owl.carousel.css">
+    @*<link rel="stylesheet" href="~/Content/dist/assets/owl.theme.default.css">*@
+    <link href="https://fonts.googleapis.com/css?family=Open Sans, Arial, sans-serif" rel="stylesheet" type="text/css" media="all">
+    <link href="https://fonts.googleapis.com/css?family=Encode+Sans+Expanded:300,400,500" rel="stylesheet">
+    <link href="https://theme.hstatic.net/1000160337/1000373353/14/style.css?v=168" rel="stylesheet" type="text/css" media="all">
+    <link href="https://theme.hstatic.net/1000160337/1000373353/14/custom.css?v=168" rel="stylesheet" type="text/css" media="all">
+
+    <!--JS-->
+    <script language="javascript" type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script language="javascript" type="text/javascript" src="~/Content/dist/owl.carousel.js"></script>
+    <script language="javascript" type="text/javascript" src="~/Content/dist/js/script.js"></script>
+    <script src="https://theme.hstatic.net/1000160337/1000373353/14/readmore.min.js?v=168" type="text/javascript"></script>
+    <script src="https://hstatic.net/0/0/global/option_selection.js"></script>
+    <script src="https://hstatic.net/0/0/global/api.jquery.js"></script>
+    <script src="https://theme.hstatic.net/1000160337/1000373353/14/imagesloaded.pkgd.min.js?v=168"></script>
+    <script async="" src="https://theme.hstatic.net/1000160337/1000373353/14/bootstrap.min.js?v=168"></script>
+    @*<script src="https://theme.hstatic.net/1000160337/1000373353/14/owl.carousel_v2.0.0-beta.2.4.js?v=168"></script>*@
+    <script src="https://theme.hstatic.net/1000160337/1000373353/14/jquery.countdown.min.js?v=168"></script>
+    <script async="" src="https://theme.hstatic.net/1000160337/1000373353/14/velocity.js?v=168"></script>
+    <script src="https://theme.hstatic.net/1000160337/1000373353/14/jquery.mthumbnailscroller.js?v=168" type="text/javascript"></script>
+    <script src="https://theme.hstatic.net/1000160337/1000373353/14/jquery.elevatezoom.js?v=168" type="text/javascript"></script>
+    <script src="https://theme.hstatic.net/1000160337/1000373353/14/bootstrap-tabdrop.js?v=168" type="text/javascript"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    @Scripts.Render("https://code.jquery.com/jquery-3.6.0.min.js")
+    @Scripts.Render("https://theme.hstatic.net/1000160337/1000373353/14/bootstrap.min.js?v=168")
+    @Scripts.Render("https://theme.hstatic.net/1000160337/1000373353/14/jquery.mthumbnailscroller.js?v=168")
+    @Scripts.Render("https://hstatic.net/0/0/global/option_selection.js")
+    @Scripts.Render("https://theme.hstatic.net/1000160337/1000373353/14/readmore.min.js?v=168")
+    @Scripts.Render("https://hstatic.net/0/0/global/api.jquery.js")
+    @Scripts.Render("https://theme.hstatic.net/1000160337/1000373353/14/imagesloaded.pkgd.min.js?v=168")
+    @Scripts.Render("https://theme.hstatic.net/1000160337/1000373353/14/jquery.countdown.min.js?v=168")
+    @Scripts.Render("https://theme.hstatic.net/1000160337/1000373353/14/velocity.js?v=168")
+    @Scripts.Render("https://theme.hstatic.net/1000160337/1000373353/14/jquery.elevatezoom.js?v=168")
+    @Scripts.Render("https://theme.hstatic.net/1000160337/1000373353/14/bootstrap-tabdrop.js?v=168")
+    @Scripts.Render("https://cdn.jsdelivr.net/npm/flatpickr")
+
+    @Scripts.Render("~/Content/dist/owl.carousel.js")
+    @Scripts.Render("~/Content/dist/js/script.js")
+    @RenderSection("scripts", required: false)
+    <script>
+        var formatMoney = '{{amount}}₫';
+    </script>
+
+    <!--responsive-->
+    @*<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">*@
+
+    <!--favicon-->
+    <link rel="icon" type="image/png" href="~/Content/dist/img/nerv-01.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="~/Content/dist/img/nerv-01.png" sizes="16x16">
+
+    <!--title-->
+    <title>@ViewBag.Title - AniFigure</title>
+
+
+</head>
+<body>
+    @RenderPage("~/Views/Home/ModalInfo.cshtml")
+    @RenderPage("~/Views/Home/ModalLogin.cshtml")
+    @RenderPage("~/Views/Home/ModalRegister.cshtml")
+    <header id="header">
+        <div id="header_main">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-8">
+                        <!--logo-->
+
+                        <div class="pull-left">
+
+                            <a href="/" class="logo" title="Ani figure">
+                                <img src="//theme.hstatic.net/1000160337/1000373353/14/logo.png?v=168" alt="Ani figure" title="Ani figure">
+                            </a>
+
+                        </div>
+
+                        <!-- end logo -->
+                    </div>
+                    <div class="col-lg-6 col-md-5 col-sm-4 hidden-xs">
+                        <!-- Search -->
+
+                        <form autocomplete="off" class="search_box" action="/User/AllProduct" method="get" data-role="search">
+                            <div class="search_wrapper">
+                                <input type="text" name="text" value="@ViewBag.TextSearch" class="index_input_search form-control" placeholder="Nhập từ khóa tìm kiếm">
+                                <button class="btn_search_submit btn " type="submit"><span>Tìm ngay</span></button>
+                            </div>
+                        </form>
+                        <!-- End Search -->
+                    </div>
+     
+                    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                        <!-- Cart -->
+                        <div class="cart_header">
+                            <a href="/User/ShoppingCart" title="Giỏ hàng">
+                                <span class="cart_header_icon"></span>
+                                <span class="box_text">
+                                    <strong class="cart_header_count" style="margin-bottom:12px">Giỏ hàng (<span class="cart_header_count2">@Session[FinalFantasu.Utils.SessionUtils.SESSION.Cart]</span>)</strong>                                
+                                </span>
+                            </a>
+
+                        </div>
+                        
+                        <!-- End Cart -->
+                        <!-- Account -->
+                        @if (userInfo == null)
+                        {
+                            <div class="user_login">
+                                <div class="user_login_icon"></div>
+                                <div class="box_text">
+                                    <strong>Tài khoản</strong>
+                                    <!--<span class="cart_price">Đăng nhập, đăng ký</span>-->
+                                </div>
+                                <div class="user_box">
+                                    <ul>
+                                        <li>
+                                            <a id="btnShowModal" href="#Login">Đăng nhập</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="user_login">
+                                <div class="user_login_icon"></div>
+                                <div class="box_text">
+                                    <strong>Tài khoản</strong>
+                                    <!--<span class="cart_price">Đăng nhập, đăng ký</span>-->
+                                </div>
+                                <div class="user_box">
+                                    <ul>
+                                        <li><a id="btnShowInfo" href="/User/Infor">Tài khoản của tôi</a></li>
+                                        <li><a href="/Home/Logout">Đăng xuất</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        }
+                        <!-- End account -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="header_mobile">
+            <div class="container">
+                <div class="row">
+                    <!-- Menu mobile -->
+                    <button type="button" class="navbar-toggle collapsed" id="trigger_click_mobile">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <div id="mobile_wrap_menu" class="visible-xs visible-sm">
+                        <div class="user_mobile">
+                            <div class="icon_user_mobile">
+                                <img src="//theme.hstatic.net/1000160337/1000373353/14/user_mobile.png?v=168" alt="account">
+                            </div>
+                            <div class="login_mobile">
+
+
+                                <a href="/Home/LoginAction" class="login-btn">Đăng nhập </a>
+                                <a href="/Home/RegisterAction" class="login-btn"> / Đăng ký</a>
+
+
+                            </div>
+                            <div class="close_menu"></div>
+                        </div>
+                        <div class="content_menu">
+                            <ul>
+
+
+                                <li>
+                                    <a href="/Home/Intro">Giới thiệu</a>
+                                </li>
+
+
+                                <li>
+                                    <a href="">Hướng dẫn</a>
+                                    <span class="more" data-toggle="collapse" data-target="#menu_child_3"><i class="fa fa-plus"></i></span>
+                                    <ul class="collapse" id="menu_child_3">
+
+
+                                        <li>
+                                            <a href="/Home/Intro">Figure là gì?</a>
+                                        </li>
+
+
+
+                                        <li>
+                                            <a href="/Home/FigureCate">Các chủng loại figure</a>
+                                        </li>
+
+
+
+                                        <li>
+                                            <a href="/Home/FakeFig">Phân biệt thật/ giả</a>
+                                        </li>
+
+
+
+
+                                        <li>
+                                            <a href="/Home/AFQ">Các chính sách</a>
+                                        </li>
+
+
+                                    </ul>
+                                </li>
+
+                                <li>
+                                    <a href="/User/AllProduct">Sản phẩm</a>
+                                    <span class="more" data-toggle="collapse" data-target="#menu_child_4"><i class="fa fa-plus"></i></span>
+                                    <ul class="collapse" id="menu_child_4">
+
+                                      
+
+
+                                    </ul>
+                                </li>
+
+
+
+                                <li>
+                                    <a href="/Home/Error">Khuyến Mãi</a>
+                                </li>
+
+
+                                <li>
+                                    <a href="/Home/AboutUs">Liên hệ</a>
+                                    <span class="more" data-toggle="collapse" data-target="#menu_child_8"><i class="fa fa-plus"></i></span>
+                                    <ul class="collapse" id="menu_child_8">
+
+                                        <li>
+                                            <a href="/Home/AboutUs">Địa chỉ</a>
+                                        </li>
+
+                                    </ul>
+                                </li>
+
+
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- End menu mobile -->
+                    <div class="pull-right mobile-menu-icon-wrapper">
+                        <!-- Logo mobile -->
+                        <div class="logo logo-mobile">
+                            <a href="/" title="Ani Figure">
+                                <img src="//theme.hstatic.net/1000160337/1000373353/14/logo.png?v=168" alt="Ani figure">
+                            </a>
+                        </div>
+                        <!-- End Logo mobile -->
+                        <!-- Cart mobile -->
+                        <div class="cart_header" id="cart-target">
+                            <a href="/User/ShoppingCart" title="Giỏ hàng">
+                                <div class="cart_header_icon"></div>
+                                <div class="box_text">
+                                    <strong class="cart_header_count"><span>0</span></strong>
+                                </div>
+                            </a>
+                        </div>
+                        <!-- End Cart mobile -->
+                    </div>
+                    <div class="clearfix"></div>
+                    <!-- Search mobile -->
+                    <form autocomplete="off" class="search_box" action="/User/AllProduct" method="get" data-role="search">
+                        <div class="search_wrapper">
+                            <input type="text" name="text" value="@ViewBag.TextSearch" class="index_input_search form-control" placeholder="Nhập từ khóa tìm kiếm">
+                            <button class="btn_search_submit btn " type="submit"><span>Tìm ngay</span></button>
+                        </div>
+                    </form>
+                    <!-- End search mobile -->
+                </div>
+            </div>
+        </div>
+    </header>
+    <nav class="navbar-main">
+        <div id="mb_mainnav">
+            <div class="container">
+                <div class="row">
+                    <nav class="col-md-12 col-sm-12 col-xs-12 p-l-0">
+                        <div class="menu-wrapper" role="navigation">
+                            <ul class="nav" role="menubar">
+                                <!--c1,c2-->
+                                <ul class="nav navbar-nav menu_hori">
+
+
+                                    <li class="has_child">
+                                        <a class="active" href="/" style="margin-left:50px">Trang chủ</a>
+                                    </li>
+
+
+                                    <li class="has_child">
+                                        <a href="/Home/Intro" style="margin-left: 50px">Giới thiệu</a>
+                                    </li>
+
+
+                                    <li class="has_child">
+                                        <a href="/Home/Blogs" style="margin-left: 50px">Hướng dẫn</a>
+                                        <ul class="menu_child">
+
+                                            <li>
+                                                <a href="/Home/Intro">Figure là gì?</a>
+                                            </li>
+
+                                            <li>
+                                                <a href="/Home/FigureCate">Các chủng loại figure</a>
+                                            </li>
+
+                                            <li>
+                                                <a href="/Home/FakeFig">Phân biệt thật/ giả</a>
+                                            </li>
+
+                                            <li>
+                                                <a href="/Home/AFQ">Các chính sách</a>
+                                            </li>
+
+                                        </ul>
+                                    </li>
+
+                                    <li class="has_child">
+                                        <a href="/User/AllProduct" style="margin-left: 50px">Sản phẩm</a>
+                                        <ul class="menu_child">
+
+                                          
+
+                                        </ul>
+                                    </li>
+
+                                    <li class="has_child">
+                                        <a href="/Home/Error" style="margin-left: 50px">K Mãi</a>
+                                    </li>
+
+
+
+
+                                    <li class="has_child">
+                                        <a href="/Home/AboutUs" style="margin-left: 50px">Liên hệ</a>
+                                        <ul class="menu_child">
+
+                                            <li>
+                                                <a href="/Home/AboutUs">Địa chỉ</a>
+                                            </li>
+
+                                        </ul>
+                                    </li>
+
+
+
+                                </ul>
+                                <!--c3-->
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div>
+        @RenderBody()
+    </div>
+    <footer>
+        <div class="footer-center">
+            <div class="container no-padding">
+                <div class="row">
+
+                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                        <div class="box-footer-colum" style="margin-left:40px">
+                            <img src="~/Content/dist/img/nerv-01.png" style="width: 40%; align-content:center" alt="logo">
+
+                        </div>
+
+                        <div class="box-footer-colum">
+                            <h4 class="">WEBSITE THUỘC QUYỀN SỞ HỮU</h4>
+                            <ul class="footer-list-menu">
+                                <li>Mô hình Nhật Bản - AniFigure</li>
+
+                            </ul>
+                        </div>
+
+
+                    </div>
+
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <div class="box-footer-colum">
+                            <h4 class="">LIÊN HỆ</h4>
+                            <ul class="footer-list-menu">
+                                <li>
+                                    <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                    <a>Địa Chỉ: 236,Hoàng Quốc Việt, Hà Nội <br> Vui lòng hẹn trước khi đến</a>
+                                </li>
+                                <li>
+                                    <i class="fa fa-phone" aria-hidden="true"></i>
+                                    <a> 090 8268 007</a>
+                                    <br>
+                                    <a class="ml28"></a>
+                                </li>
+                                <li>
+                                    <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                                    <a>support@japanfigure.vn</a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="box-footer-colum email">
+                            <h4 class="">Đăng ký nhận tin</h4>
+                            <div class="block-content">
+                                <form id="newsletter_form" accept-charset="UTF-8" action="/account/contact" class="m-b-20 contact-form" method="post">
+                                    <input name="form_type" type="hidden" value="customer">
+                                    <input name="utf8" type="hidden" value="✓">
+                                    <input type="hidden" id="contact_tags" name="contact[tags]" value="khách hàng tiềm năng,Bản tin">
+                                    <input type="hidden" id="newsletter_first_name" name="contact[first_name]" value="">
+                                    <div class="input-group">
+                                        <input required="" type="email" id="contact_email" name="contact[email]" autocomplete="off" class="form-control" placeholder="Vui lòng nhập địa chỉ email">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-subcribe" type="submit"><span>Gửi</span></button>
+                                        </span>
+                                    </div>
+                                </form>
+
+                                <script>
+                                    /*---  Email newsletter ---*/
+                                    var $regForm = $('#newsletter_form');
+                                    $regForm.submit(function (e) {
+                                        $.post('/account/contact', {
+                                            form_type: "contact",
+                                            utf8: "✓",
+                                            "contact": {
+                                                "email": 'email'
+                                            }
+                                        }, function (r) {
+                                            alert('Cám ơn bạn đã đăng ký nhận tin !');
+                                        });
+                                    });
+                                </script>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-lg-2 col-md-3 col-sm-6 col-xs-12">
+                        <div class="box-footer-colum">
+                            <h4 class="">THÔNG TIN  HỖ TRỢ</h4>
+                            <ul class="footer-list-menu">
+
+                                <li>
+                                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                    <a href="/Home/Intro" title="Giới thiệu">Giới thiệu</a>
+                                </li>
+
+                            </ul>
+                        </div>
+
+                    </div>
+
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+
+                        <div class="box-footer-colum mb15">
+                            <h4 class="">KẾT NỐI VỚI JAPAN FIGURE</h4>
+                            <div class="social">
+
+                                <ul class="list-unstyled clearfix">
+
+                                    <li class="facebook">
+                                        <a target="_blank" href="http://facebook.com/japanfigure" class="fa fa-facebook"></a>
+                                    </li>
+
+
+                                    <li class="twitter">
+                                        <a class="fa fa-twitter" target="_blank" href="http://facebook.com/japanfigure"></a>
+                                    </li>
+
+
+                                    <li class="google-plus">
+                                        <a class="fa fa-google-plus" target="_blank" href="http://facebook.com/japanfigure"></a>
+                                    </li>
+
+
+                                    <li class="rss">
+                                        <a class="fa fa-instagram" target="_blank" href="http://facebook.com/japanfigure"></a>
+                                    </li>
+
+
+                                    <li class="youtube">
+                                        <a class="fa fa-youtube" target="_blank" href="https://www.youtube.com/channel/UCoOXLGsa5joTIO05WF7ZGGA"></a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="dkbocongthuong">
+                            <div class="fb-page fb_iframe_widget" data-href="http://facebook.com/japanfigure" data-width="380" data-hide-cover="false" data-show-facepile="false" adapt_container_width="true" fb-xfbml-state="rendered" fb-iframe-plugin-query="adapt_container_width=true&amp;app_id=&amp;container_width=270&amp;hide_cover=false&amp;href=http%3A%2F%2Ffacebook.com%2Fjapanfigure&amp;locale=vi_VN&amp;sdk=joey&amp;show_facepile=false&amp;width=380">
+                                <span style="vertical-align: bottom; width: 270px; height: 130px;"><iframe name="f16eba16bb7f878" width:380px height: 1000px data-testid="fb:page Facebook Social Plugin" title="fb:page Facebook Social Plugin" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" allow="encrypted-media" src="https://www.facebook.com/v9.0/plugins/page.php?adapt_container_width=true&amp;app_id=&amp;channel=https%3A%2F%2Fstaticxx.facebook.com%2Fx%2Fconnect%2Fxd_arbiter%2F%3Fversion%3D46%23cb%3Df1c1804d53c89b8%26domain%3Djapanfigure.vn%26origin%3Dhttps%253A%252F%252Fjapanfigure.vn%252Ff1152d2fbe5618c%26relation%3Dparent.parent&amp;container_width=270&amp;hide_cover=false&amp;href=http%3A%2F%2Ffacebook.com%2Fjapanfigure&amp;locale=vi_VN&amp;sdk=joey&amp;show_facepile=false&amp;width=380" style="border: none; visibility: visible; width: 270px; height: 130px;" __idm_frm__="444" class=""></iframe></span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
