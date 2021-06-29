@@ -10,6 +10,7 @@ using System.Web.Security;
 
 namespace FinalFantasu.Controllers
 {
+    //vd in here
     public class UserController : Controller
     {
         AniFigDB db = new AniFigDB();
