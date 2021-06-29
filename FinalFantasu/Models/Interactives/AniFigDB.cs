@@ -275,7 +275,9 @@ namespace FinalFantasu.Models.Interactives
             int Quantity,
             string Description,
             int idPublisher,
-            int idType)
+            int idType,
+            int isHidden = 0,
+            string keySearch = "figure test")
         {
             Figure fig = new Figure();
             fig.Title = Title;
@@ -285,6 +287,8 @@ namespace FinalFantasu.Models.Interactives
             fig.Description = Description;
             fig.idPublisher = idPublisher;
             fig.idType = idType;
+            fig.isHidden = isHidden;
+            fig.KeySearch = keySearch;
             aniFigDB.Figures.Add(fig);
             aniFigDB.SaveChanges();
             if (Images != null && Images.Count() > 0)

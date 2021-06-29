@@ -102,7 +102,7 @@
                 </div>
             </div>
 
-            <div class="dropdown ml-3">
+            <div class="dropdown ml-3" hidden>
                 <button class="btn dropdown-toggle" type="button" id="dropdownPageSize" data-toggle="dropdown">
                     <span>@ViewBag.PageSize sản phẩm</span>
                 </button>
@@ -141,7 +141,7 @@
             <div style="margin:10px; flex:1;flex-direction:row;display:flex; border: 1px solid white;padding:10px;text-decoration:none">
                 <div style="width:100px ;object-fit:contain"></div>
                 <b class="title-tea">
-                    Tên trà
+                    Tên sản phẩm
                 </b>
                 <div class="header-tea" style="text-align:center">
                     Số lượng
@@ -251,8 +251,8 @@
     }
 
     let onClickDeleteTea = (id, title) => {
-        $('#delete-tea-title').text(title)
-        $('#delete-tea-id').val(id)
+        $('#delete-fig-title').text(title)
+        $('#delete-fig-id').val(id)
         $('#modalDelete').modal('show');
     }
 

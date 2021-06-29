@@ -3,24 +3,25 @@
     Layout = "~/Views/Admin/Shared/_Layout.cshtml";
 }
 
-<div class="row">
-    <div class="col-6">
-        <h4>Danh sách</h4>
-        <hr />
-        <input type="text" id="search_category" class="form-control" placeholder="Tìm kiếm danh mục" onkeyup="searchInBody()" />
-        <div style="overflow-y:auto;height:800px">
-            <table class="table">
-                <tbody id="body_category">
-                    @foreach (var cate in listCategory)
-                    {
-                        <tr class="cate_list" style="cursor:pointer" title="@cate.KeySearch" onclick="fillCate('@cate.ID', '@cate.Name')">
-                            <th class="cate_name">@cate.Name</th>
-                            <td><a href="/Admin/RemoveCategory/@cate.ID"><img src="~/Content/Icon/ic_delete.png" style="width:25px" /></a></td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            <h4>Danh sách</h4>
+            <hr />
+            <input type="text" id="search_category" class="form-control" placeholder="Tìm kiếm danh mục" onkeyup="searchInBody()" />
+            <div style="overflow-y:auto;height:800px">
+                <table class="table">
+                    <tbody id="body_category">
+                        @foreach (var cate in listCategory)
+                        {
+                            <tr class="cate_list" style="cursor:pointer" title="@cate.KeySearch" onclick="fillCate('@cate.ID', '@cate.Name')">
+                                <th class="cate_name">@cate.Name</th>
+                                <td><a href="/Admin/RemoveCategory/@cate.ID"><img src="~/Content/Icon/ic_delete.png" style="width:25px" /></a></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
         </div>
         <div class="col-6">
             <h4>Cập nhật</h4>
@@ -47,6 +48,7 @@
             </form>
         </div>
     </div>
+</div>
 <script>
     let fillCate = (id, name) => {
         $("#category_id_edit").val(id)

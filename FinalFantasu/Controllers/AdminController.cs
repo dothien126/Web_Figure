@@ -119,10 +119,10 @@ namespace FinalFantasu.Areas.Admin.Controllers
         {
             if (Price < 0 || Quantity < 0) {
                 TempData["Message"] = "Lỗi nhập liệu, vui lòng kiểm tra lại thông tin (tiền âm,...)";
-                return RedirectToAction("Edit", "Admin", new { id = ID });
+                return RedirectToAction("Edit", "Admin");
             }
             db.EditFig(ID, images_delete, Images, Title, Price, ReleaseDate, Quantity, Description, idPublisher, idType);
-            return RedirectToAction("Edit", "Admin", new { id = ID });
+            return RedirectToAction("Figure", "Admin");
         }
 
         [HttpPost]
@@ -137,7 +137,7 @@ namespace FinalFantasu.Areas.Admin.Controllers
             catch (Exception)
             {
             }
-            return RedirectToAction("Tea", "Admin");
+            return RedirectToAction("Figure", "Admin");
         }
 
 
@@ -150,16 +150,19 @@ namespace FinalFantasu.Areas.Admin.Controllers
             int Quantity,
             string Description,
             int idPublisher,
-            int idType)
+            int idType,
+            int isHidden = 0,
+            string keySearch = "figure test")
         {
             if (Price < 0 || Quantity < 0)
             {
                 TempData["Message"] = "Lỗi nhập liệu, vui lòng kiểm tra lại thông tin (tiền âm,...)";
                 return RedirectToAction("Add", "Admin");
             }
-            Figure fig = db.AddFig(Images, Title, Price, ReleaseDate, Quantity, Description, idPublisher, idType);
-            return RedirectToAction("Details", "User", new { id = fig.ID });
+            Figure fig = db.AddFig(Images, Title, Price, ReleaseDate, Quantity, Description, idPublisher, idType, isHidden, keySearch);
+            return RedirectToAction("Figure", "Admin");
         }
+        // new { id = fig.ID }
 
         public ActionResult Add()
         {

@@ -8,13 +8,13 @@
 
 @RenderPage("~/Areas/Admin/Views/Admin/ModalConfirmOrder.cshtml")
 <div class="container">
-    <div style="flex:1;background-color:#00B38F;padding:10px;border-radius:10px">
+    <div style="flex:1;background-color:#ff4d4d;padding:10px;border-radius:10px">
         <h3 style="color:white">Quản lý đơn hàng</h3>
         <div style="display:flex;flex:1">
             <div class="list-group" id="list-tab" style="flex-direction: row;flex:1" role="tablist">
                 <a class="btn m-1 pl-5 pr-5 btn-light active show" style="flex:1" id="tab_login" data-toggle="list" href="#processing" role="tab">
                     Chưa giao
-                    <span class="badge badge-primary badge-pill" style="background-color:#00B38F;">@processingOrders.Count</span>
+                    <span class="badge badge-primary badge-pill" style="background-color:#ff4d4d;">@processingOrders.Count</span>
                 </a>
                 <a class="btn m-1 pl-5 pr-5 btn-light" id="tab_register" style="flex:1" data-toggle="list" href="#deliveried" role="tab">
                     Đã giao
@@ -45,7 +45,7 @@
                                             <strong>@fig.Figure.Title</strong>
                                         </div>
                                         <div>
-                                            <p align="right" style="color:#00B38F">Giá: @fig.Figure.Price</p>
+                                            <p align="right" style="color:#ff4d4d">Giá: @fig.Figure.Price</p>
                                             <p align="right">Số lượng: @fig.Quantity</p>
                                         </div>
                                     </div>
@@ -65,9 +65,9 @@
                                 </div>
                                 <div style=" display: flex; justify-content: center; align-items: center;flex-direction:column">
                                     <div style="display:flex;flex-direction:row;align-self:center">
-                                        <div style="margin-right:10px;margin-top:3px">Tổng số tiền</div> <h4 style="color:#00B38F;">@item.TotalPrice</h4>
+                                        <div style="margin-right:10px;margin-top:3px">Tổng số tiền</div> <h4 style="color:#ff4d4d;">@item.TotalPrice</h4>
                                     </div>
-                                    <div onclick="onClickConfirmOrder('@item.ID')" class="btn btn-light" style="background-color:#00B38F;color:white;margin-left:25px;margin-top:15px">
+                                    <div onclick="onClickConfirmOrder('@item.ID')" class="btn btn-light" style="background-color:#ff4d4d;color:white;margin-left:25px;margin-top:15px">
                                         Xác nhận giao hàng
                                     </div>
                                 </div>
@@ -97,7 +97,7 @@
                                             <strong>@fig.Figure.Title</strong>
                                         </div>
                                         <div>
-                                            <p align="right" style="color:#00B38F">Giá: @fig.Figure.Price</p>
+                                            <p align="right" style="color:#ff4d4d">Giá: @fig.Figure.Price</p>
                                             <p align="right">Số lượng: @fig.Quantity</p>
                                         </div>
                                     </div>
@@ -117,7 +117,7 @@
                                 </div>
                                 <div style=" display: flex; justify-content: center; align-items: center;flex-direction:column">
                                     <div style="display:flex;flex-direction:row;align-self:center">
-                                        <div style="margin-right:10px;margin-top:3px">Tổng số tiền</div> <h4 style="color:#00B38F;">@item.TotalPrice</h4>
+                                        <div style="margin-right:10px;margin-top:3px">Tổng số tiền</div> <h4 style="color:#ff4d4d;">@item.TotalPrice</h4>
                                     </div>
                                 </div>
                             </li>

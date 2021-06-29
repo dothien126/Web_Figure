@@ -15,128 +15,130 @@
 
 <br />
 <br />
-<form class="form-horizontal ml-2" method="post" action="/Admin/EditFig" enctype="multipart/form-data">
-    <div class="row ml-2">
-        <div onclick="goBack()" style="cursor:pointer">
-            <ion-icon style="font-size:25px;color:#ff4d4d;margin-top:5px;margin-right:10px" name="arrow-back-circle-outline"></ion-icon>
+<div class="container">
+    <form class="form-horizontal ml-2" method="post" action="/Admin/EditFig" enctype="multipart/form-data">
+        <div class="row ml-2">
+            <div onclick="goBack()" style="cursor:pointer">
+                <ion-icon style="font-size:25px;color:#ff4d4d;margin-top:5px;margin-right:10px" name="arrow-back-circle-outline"></ion-icon>
+            </div>
+            <h4>Cập nhật thông tin</h4>
         </div>
-        <h4>Cập nhật thông tin</h4>
-    </div>
-    <hr />
-    <p>
-        <h5>Ảnh sản phẩm</h5>
-    </p>
+        <hr />
+        <p>
+            <h5>Ảnh sản phẩm</h5>
+        </p>
 
-    <div style="display:flex;flex:1">
-        <div class="m-3">
-            <label for="file-input">
-                <img src="https://cdn.pixabay.com/photo/2017/11/10/05/24/add-2935429_960_720.png" id="imgVoTra" style="height:250px;width:150px;object-fit:contain;text-align:center;" />
-            </label>
-            <input id="file-input" name="Images" type="file" hidden multiple accept="image/*" onchange="OnAddImage();" />
+        <div style="display:flex;flex:1">
+            <div class="m-3">
+                <label for="file-input">
+                    <img src="https://cdn.pixabay.com/photo/2017/11/10/05/24/add-2935429_960_720.png" id="imgAnhBia" style="height:250px;width:150px;object-fit:contain;text-align:center;" />
+                </label>
+                <input id="file-input" name="Images" type="file" hidden multiple accept="image/*" onchange="OnAddImage();" />
+            </div>
+            <div id="images_delete" hidden></div>
+            <div id="images" style="overflow-x:auto;height:300px;flex-direction:row;display:flex;overflow-y:hidden">
+                @for (int i = 0; i < images.Count; i++)
+                {
+                    <div onclick="deleteImage('@i', '@images[i].IDImage')" class="m-3" style="position: relative; display: inline-block;" id="divAnhBia_@i" onmouseover="onFocusImg('@i')" onmouseout="onBlurImg()">
+                        <img id="imgAnhBia_@i" src="@images[i].Url" style="height:250px;width:250px;object-fit:contain;text-align:center;" />
+                        <div style="position: absolute; top: 100px; left: 100px; height: 100%; width: 100%; z-index: 2;"><img hidden='hidden' id="icDelete_@i" style="height:50px;width:50px;object-fit:contain;" src="/Content/Icon/ic_delete.png" /></div>
+                    </div>
+                }
+            </div>
         </div>
-        <div id="images_delete" hidden></div>
-        <div id="images" style="overflow-x:auto;height:300px;flex-direction:row;display:flex;overflow-y:hidden">
-            @for (int i = 0; i < images.Count; i++)
+        <br />
+        @{
+            if (TempData["Message"] != null)
             {
-                <div onclick="deleteImage('@i', '@images[i].IDImage')" class="m-3" style="position: relative; display: inline-block;" id="divVoTra_@i" onmouseover="onFocusImg('@i')" onmouseout="onBlurImg()">
-                    <img id="imgVoTra_@i" src="@images[i].Url" style="height:250px;width:250px;object-fit:contain;text-align:center;" />
-                    <div style="position: absolute; top: 100px; left: 100px; height: 100%; width: 100%; z-index: 2;"><img hidden='hidden' id="icDelete_@i" style="height:50px;width:50px;object-fit:contain;" src="/Content/Icon/ic_delete.png" /></div>
+                <div class="alert alert-danger" role="alert">
+                    @TempData["Message"]
                 </div>
             }
-        </div>
-    </div>
-    <br />
-    @{  
-        if (TempData["Message"] != null)
-        {
-        <div class="alert alert-danger" role="alert">
-            @TempData["Message"]
-        </div>
-            }
-    }
-    <input class="form-control" name="ID" value="@Model.ID" hidden />
-    <div class="col">
+        }
+        <input class="form-control" name="ID" value="@Model.ID" hidden />
         <div class="col">
-            <div class="form-group">
-                <label>Tên Figure</label>
-                <input type="text"
-                       class="form-control"
-                       name="Title"
-                       value="@Model.Title"
-                       id="Title"
-                       required
-                       oninput="setCustomValidity('')"
-                       oninvalid="this.setCustomValidity('@ViewBag.MessageForValid')" />
-            </div>
-            <div class="form-group">
-                <label>Giá tiền</label>
-                <input type="number"
-                       class="form-control"
-                       name="Price"
-                       value="@Model.Price"
-                       id="Price"
-                       required
-                       oninput="setCustomValidity('')"
-                       oninvalid="this.setCustomValidity('@ViewBag.MessageForValid')" />
-            </div>
-            <div class="form-group">
-                <label>Ngày ra mắt</label>
-                <div id="flatpickrcontainer">
-                    <input class="form-control" type="text" id="time" name="ReleaseDate" placeholder="@Model.ReleaseDate.ToString()" value="@Model.ReleaseDate.ToString()" data-input>
+            <div class="col">
+                <div class="form-group">
+                    <label>Tên Figure</label>
+                    <input type="text"
+                           class="form-control"
+                           name="Title"
+                           value="@Model.Title"
+                           id="Title"
+                           required
+                           oninput="setCustomValidity('')"
+                           oninvalid="this.setCustomValidity('@ViewBag.MessageForValid')" />
                 </div>
-                <script>
+                <div class="form-group">
+                    <label>Giá tiền</label>
+                    <input type="number"
+                           class="form-control"
+                           name="Price"
+                           value="@Model.Price"
+                           id="Price"
+                           required
+                           oninput="setCustomValidity('')"
+                           oninvalid="this.setCustomValidity('@ViewBag.MessageForValid')" />
+                </div>
+                <div class="form-group">
+                    <label>Ngày ra mắt</label>
+                    <div id="flatpickrcontainer">
+                        <input class="form-control" type="text" id="time" name="ReleaseDate" placeholder="@Model.ReleaseDate.ToString()" value="@Model.ReleaseDate.ToString()" data-input>
+                    </div>
+                    <script>
 
-                    // js initialization
+                        // js initialization
 
-                    flatpickr.l10ns.default.firstDayOfWeek = 1; // Monday default is sunday
+                        flatpickr.l10ns.default.firstDayOfWeek = 1; // Monday default is sunday
 
-                    document.getElementById("flatpickrcontainer").flatpickr({
-                        wrap: true,
-                        weekNumbers: true,
-                        onChange: function (selectedDates, dateStr, instance) {
-                            console.log("changed");
-                        }
-                    });
-                </script>
-            </div>
-            <div class="form-group">
-                <label>Nhà sản xuất</label>
-                @Html.DropDownList("idPublisher", new SelectList(ViewBag.listCategories, "ID", "Name"), htmlAttributes: new { @class = "form-control" })
-            </div>
-            <div class="form-group">
-                <label>Loại Figure</label>
-                @Html.DropDownList("idType", new SelectList(ViewBag.listType, "ID", "Name"), htmlAttributes: new { @class = "form-control" })
-            </div>
-            <div class="form-group">
-                <label>Mô tả</label>
-                <textarea type="text"
-                          class="form-control"
-                          name="Description"
-                          value=""
-                          id="Description"
-                          rows="5">@Model.Description</textarea>
-            </div>
-            <div class="form-group">
-                <label>Số lượng nhập kho</label>
-                <input type="number"
-                       class="form-control"
-                       name="Quantity"
-                       value="@Model.Quantity"
-                       id="Price"
-                       required
-                       oninput="setCustomValidity('')"
-                       oninvalid="this.setCustomValidity('@ViewBag.MessageForValid')" />
-            </div>
-            <button type="submit" id="button_push" class="btn btn-light col p-3" style="background-color:#ff4d4d;color:white;">Thêm sản phẩm</button>
+                        document.getElementById("flatpickrcontainer").flatpickr({
+                            wrap: true,
+                            weekNumbers: true,
+                            onChange: function (selectedDates, dateStr, instance) {
+                                console.log("changed");
+                            }
+                        });
+                    </script>
+                </div>
+                <div class="form-group">
+                    <label>Nhà sản xuất</label>
+                    @Html.DropDownList("idPublisher", new SelectList(ViewBag.listCategories, "ID", "Name"), htmlAttributes: new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    <label>Loại Figure</label>
+                    @Html.DropDownList("idType", new SelectList(ViewBag.listType, "ID", "Name"), htmlAttributes: new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    <label>Mô tả</label>
+                    <textarea type="text"
+                              class="form-control"
+                              name="Description"
+                              value=""
+                              id="Description"
+                              rows="5">@Model.Description</textarea>
+                </div>
+                <div class="form-group">
+                    <label>Số lượng nhập kho</label>
+                    <input type="number"
+                           class="form-control"
+                           name="Quantity"
+                           value="@Model.Quantity"
+                           id="Price"
+                           required
+                           oninput="setCustomValidity('')"
+                           oninvalid="this.setCustomValidity('@ViewBag.MessageForValid')" />
+                </div>
+                <button type="submit" id="button_push" class="btn btn-light col p-3" style="background-color:#ff4d4d;color:white;">Cập nhật</button>
 
+            </div>
         </div>
-    </div>
-</form>
+    </form>
+</div>
 <script>
 
     const goBack = () => {
         if (document.referrer.includes("Edit")) {
-            window.location.href = '/Admin/Order'
+            window.location.href = '/Admin/Figure'
         } else {
             history.back()
         }
@@ -148,14 +150,14 @@
 
     let oldId = -1
     const onFocusImg = (id) => {
-        $("#imgVoTra_" + id).css('opacity', 0.3);
-        $("#imgVoTra_" + id).css('border', '2px solid #ff4d4d')
+        $("#imgAnhBia_" + id).css('opacity', 0.3);
+        $("#imgAnhBia_" + id).css('border', '2px solid #ff4d4d')
         $("#icDelete_" + id).removeAttr('hidden');
         oldId = id
     }
     const onBlurImg = () => {
-        $("#imgVoTra_" + oldId).css('opacity', 1);
-        $("#imgVoTra_" + oldId).css('border', '0px')
+        $("#imgAnhBia_" + oldId).css('opacity', 1);
+        $("#imgAnhBia_" + oldId).css('border', '0px')
         $("#icDelete_" + oldId).attr('hidden', 'hidden');
     }
 
@@ -174,7 +176,7 @@
 
 
     let deleteImage = (id, idImage) => {
-        $("#divVoTra_" + id).remove();
+        $("#divAnhBia_" + id).remove();
         let containt = listImg.filter(e => e.id == id).length > 0
         if (containt) {
             listImg = listImg.filter(e => e.id != id)
@@ -195,11 +197,13 @@
 
                 let reader = new FileReader();
                 reader.onload = function (e) {
-                    $("#images").append(`<div onclick="deleteImage('${imgCount}')" class="m-3" style="position: relative; display: inline-block;" id="divVoTra_${imgCount}" onmouseover="onFocusImg('${imgCount}')" onmouseout="onBlurImg()">
-    <img id="imgVoTra_${imgCount}" style="height:250px;width:250px;object-fit:contain;text-align:center;" />
-    <div style="position: absolute; top: 100px; left: 100px; height: 100%; width: 100%; z-index: 2;"><img hidden='hidden' id="icDelete_${imgCount}" style="height:50px;width:50px;object-fit:contain;" src="/Content/Icon/ic_delete.png" /></div>
-</div>`)
-                    $('#imgVoTra_' + imgCount).attr('src', e.target.result);
+                    $("#images").append(`
+                        <div onclick="deleteImage('${imgCount}')" class="m-3" style="position: relative; display: inline-block;" id="divAnhBia_${imgCount}" onmouseover="onFocusImg('${imgCount}')" onmouseout="onBlurImg()">
+                        <img id="imgAnhBia_${imgCount}" style="height:250px;width:250px;object-fit:contain;text-align:center;" />
+                        <div style="position: absolute; top: 100px; left: 100px; height: 100%; width: 100%; z-index: 2;"><img hidden='hidden' id="icDelete_${imgCount}" style="height:50px;width:50px;object-fit:contain;" src="/Content/Icon/ic_delete.png" /></div>
+                        </div>
+                    `)
+                    $('#imgAnhBia_' + imgCount).attr('src', e.target.result);
                     listImg.push({
                         id: imgCount,
                         file: files[i]

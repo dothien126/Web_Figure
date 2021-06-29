@@ -18,13 +18,13 @@
 <form class="form-horizontal ml-2" method="post" action="/Admin/EditTea" enctype="multipart/form-data">
     <div class="row ml-2">
         <div onclick="goBack()" style="cursor:pointer">
-            <ion-icon style="font-size:25px;color:#00B38F;margin-top:5px;margin-right:10px" name="arrow-back-circle-outline"></ion-icon>
+            <ion-icon style="font-size:25px;color:#ff4d4d;margin-top:5px;margin-right:10px" name="arrow-back-circle-outline"></ion-icon>
         </div>
         <h4>Cập nhật thông tin</h4>
     </div>
     <hr />
     <p>
-        <h5>Ảnh trà</h5>
+        <h5>Ảnh figure</h5>
     </p>
 
     <div style="display:flex;flex:1">
@@ -82,7 +82,7 @@
                           id="Description"
                           rows="5">@Model.Description</textarea>
             </div>
-            <button type="submit" id="button_push" class="btn btn-light col p-3" style="background-color:#00B38F;color:white;">Cập nhật thông tin</button>
+            <button type="submit" id="button_push" class="btn btn-light col p-3" style="background-color:#ff4d4d;color:white;">Cập nhật thông tin</button>
 
         </div>
     </div>
@@ -104,7 +104,7 @@
     let oldId = -1
     const onFocusImg = (id) => {
         $("#imgVoTra_" + id).css('opacity', 0.3);
-        $("#imgVoTra_" + id).css('border', '2px solid #00B38F')
+        $("#imgVoTra_" + id).css('border', '2px solid #ff4d4d')
         $("#icDelete_" + id).removeAttr('hidden');
         oldId = id
     }

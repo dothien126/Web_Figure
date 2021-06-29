@@ -6,8 +6,8 @@
 @RenderPage("~/Areas/Admin/Views/Admin/ModalDelete.cshtml")
 
 <nav class="nav float-right p-3">
-    <a href="/Admin/Admin/Add" class="btn btn-light" style="background-color:#00B38F;color:white">
-        <b>Thêm trà</b>
+    <a href="/Admin/Admin/Add" class="btn btn-light" style="background-color:#ff4d4d;color:white">
+        <b>Thêm figure</b>
     </a>
 </nav>
 
@@ -15,7 +15,7 @@
 <form action="?" class="pt-1 pb-4 container">
     <div class="input-group">
         <input name="text" type="text" class="form-control" placeholder="Tìm kiếm mô hình" value="@ViewBag.TextSearch" />
-        <button class="btn btn-solid-primary btn-light" style="color:white;background-color:#00B38F;" type="submit">
+        <button class="btn btn-solid-primary btn-light" style="color:white;background-color:#ff4d4d;" type="submit">
             <ion-icon style="font-size:15px" name="search"></ion-icon>
         </button>
     </div>
@@ -34,7 +34,7 @@
             <input type="number" class="form-control price" value="@ViewBag.PriceTo" />
             <p>
                 <a href="#" onclick="getUrl({ priceFrom: $('.form-control.price')[0].value, priceTo:$('.form-control.price')[1].value })"
-                   class="btn btn-light mt-1" style="background-color:#00B38F;color:white">
+                   class="btn btn-light mt-1" style="background-color:#ff4d4d;color:white">
                     Xác nhận
                 </a>
             </p>
@@ -46,7 +46,7 @@
                 if (cate.ID == ViewBag.cate)
                 {
                     <div class="list-group-item" style="border:0px;padding:10px">
-                        <b style="color:#00B38F">@cate.Name</b>
+                        <b style="color:#ff4d4d">@cate.Name</b>
                         <a href="#" onclick="getUrl({ page: 1, cate:0 })" class="btn">
                             <ion-icon style="font-size:25px;text-align:center" name="close-circle-outline"></ion-icon>
                         </a>
@@ -112,7 +112,7 @@
             <div style="margin:10px; flex:1;flex-direction:row;display:flex; border: 1px solid white;padding:10px;text-decoration:none">
                 <div style="width:100px ;object-fit:contain"></div>
                 <b class="title-tea">
-                    Tên trà
+                    Tên figure
                 </b>
                 <div class="header-tea" style="text-align:center">
                     Số lượng
@@ -172,7 +172,7 @@
                 {
                     if (i == ViewBag.CurrentPage)
                     {
-                        <div class="col item-page" style="background:#00B38F;color:white;">
+                        <div class="col item-page" style="background:#ff4d4d;color:white;">
                             @(ViewBag.CurrentPage)
                         </div>
                     }
@@ -205,7 +205,7 @@
 
 <script>
     const onMoveMouseItem = (id) => {
-        $('#' + id).css('border', '1px solid #00B38F')
+        $('#' + id).css('border', '1px solid #ff4d4d')
     }
     const onMoveOutMouseOfItem = (id) => {
         $('#' + id).css('border', '1px solid white')
